@@ -14,6 +14,10 @@
 		CB9FE68128F36C4D00A6599C /* TheMovieAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE68028F36C4D00A6599C /* TheMovieAppTests.swift */; };
 		CB9FE68B28F36C4D00A6599C /* TheMovieAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE68A28F36C4D00A6599C /* TheMovieAppUITests.swift */; };
 		CB9FE68D28F36C4D00A6599C /* TheMovieAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE68C28F36C4D00A6599C /* TheMovieAppUITestsLaunchTests.swift */; };
+		CB9FE69B28F40EBC00A6599C /* MovieRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE69A28F40EBC00A6599C /* MovieRowView.swift */; };
+		CB9FE69E28F4153600A6599C /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE69D28F4153600A6599C /* BackButton.swift */; };
+		CB9FE6A028F417F800A6599C /* WatchedStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE69F28F417F800A6599C /* WatchedStatusView.swift */; };
+		CB9FE6A228F4188200A6599C /* FavouriteStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE6A128F4188200A6599C /* FavouriteStatusView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +48,10 @@
 		CB9FE68628F36C4D00A6599C /* TheMovieAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TheMovieAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB9FE68A28F36C4D00A6599C /* TheMovieAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheMovieAppUITests.swift; sourceTree = "<group>"; };
 		CB9FE68C28F36C4D00A6599C /* TheMovieAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheMovieAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		CB9FE69A28F40EBC00A6599C /* MovieRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRowView.swift; sourceTree = "<group>"; };
+		CB9FE69D28F4153600A6599C /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
+		CB9FE69F28F417F800A6599C /* WatchedStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchedStatusView.swift; sourceTree = "<group>"; };
+		CB9FE6A128F4188200A6599C /* FavouriteStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteStatusView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +104,7 @@
 			children = (
 				CB9FE66F28F36C4B00A6599C /* TheMovieAppApp.swift */,
 				CB9FE67128F36C4B00A6599C /* ContentView.swift */,
+				CB9FE69928F40DE000A6599C /* Views */,
 				CB9FE67328F36C4D00A6599C /* Assets.xcassets */,
 				CB9FE67528F36C4D00A6599C /* Preview Content */,
 			);
@@ -125,6 +134,25 @@
 				CB9FE68C28F36C4D00A6599C /* TheMovieAppUITestsLaunchTests.swift */,
 			);
 			path = TheMovieAppUITests;
+			sourceTree = "<group>";
+		};
+		CB9FE69928F40DE000A6599C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CB9FE69A28F40EBC00A6599C /* MovieRowView.swift */,
+				CB9FE69C28F4151B00A6599C /* Common Views */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CB9FE69C28F4151B00A6599C /* Common Views */ = {
+			isa = PBXGroup;
+			children = (
+				CB9FE69D28F4153600A6599C /* BackButton.swift */,
+				CB9FE69F28F417F800A6599C /* WatchedStatusView.swift */,
+				CB9FE6A128F4188200A6599C /* FavouriteStatusView.swift */,
+			);
+			path = "Common Views";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,7 +285,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB9FE6A028F417F800A6599C /* WatchedStatusView.swift in Sources */,
+				CB9FE69E28F4153600A6599C /* BackButton.swift in Sources */,
+				CB9FE6A228F4188200A6599C /* FavouriteStatusView.swift in Sources */,
 				CB9FE67228F36C4B00A6599C /* ContentView.swift in Sources */,
+				CB9FE69B28F40EBC00A6599C /* MovieRowView.swift in Sources */,
 				CB9FE67028F36C4B00A6599C /* TheMovieAppApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
