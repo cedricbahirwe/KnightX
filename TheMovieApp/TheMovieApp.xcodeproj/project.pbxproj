@@ -21,16 +21,20 @@
 		CB9FE6A428F41E2F00A6599C /* MoviesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE6A328F41E2F00A6599C /* MoviesListView.swift */; };
 		CB9FE6A728F41EDD00A6599C /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE6A628F41EDD00A6599C /* Color+Extensions.swift */; };
 		CB9FE6AA28F42EC800A6599C /* MovieDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE6A928F42EC800A6599C /* MovieDetailView.swift */; };
-		CB9FE6BA28F44DDA00A6599C /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = CB9FE6B928F44DDA00A6599C /* RxCocoa */; };
-		CB9FE6BC28F44DDA00A6599C /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = CB9FE6BB28F44DDA00A6599C /* RxRelay */; };
-		CB9FE6BE28F44DDA00A6599C /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CB9FE6BD28F44DDA00A6599C /* RxSwift */; };
-		CB9FE6C128F44EAF00A6599C /* RxAlamofire in Frameworks */ = {isa = PBXBuildFile; productRef = CB9FE6C028F44EAF00A6599C /* RxAlamofire */; };
-		CB9FE6C428F44F2000A6599C /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = CB9FE6C328F44F2000A6599C /* SDWebImageSwiftUI */; };
 		CB9FE6AF28F44A7600A6599C /* URLRequest+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE6AE28F44A7600A6599C /* URLRequest+Extension.swift */; };
 		CB9FE6B128F44A9500A6599C /* APIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE6B028F44A9500A6599C /* APIEndpoint.swift */; };
 		CB9FE6B328F44AC200A6599C /* APIMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE6B228F44AC200A6599C /* APIMethod.swift */; };
 		CB9FE6B528F44B0C00A6599C /* AuthenticationLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE6B428F44B0C00A6599C /* AuthenticationLocalDataSource.swift */; };
 		CB9FE6B728F44C7900A6599C /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE6B628F44C7900A6599C /* APIClient.swift */; };
+		CB9FE6BA28F44DDA00A6599C /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = CB9FE6B928F44DDA00A6599C /* RxCocoa */; };
+		CB9FE6BC28F44DDA00A6599C /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = CB9FE6BB28F44DDA00A6599C /* RxRelay */; };
+		CB9FE6BE28F44DDA00A6599C /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CB9FE6BD28F44DDA00A6599C /* RxSwift */; };
+		CB9FE6C128F44EAF00A6599C /* RxAlamofire in Frameworks */ = {isa = PBXBuildFile; productRef = CB9FE6C028F44EAF00A6599C /* RxAlamofire */; };
+		CB9FE6C428F44F2000A6599C /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = CB9FE6C328F44F2000A6599C /* SDWebImageSwiftUI */; };
+		CB9FE6C628F4537C00A6599C /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE6C528F4537C00A6599C /* NetworkError.swift */; };
+		CB9FE6C828F4543D00A6599C /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE6C728F4543D00A6599C /* Logger.swift */; };
+		CB9FE6CA28F454C800A6599C /* ErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE6C928F454C800A6599C /* ErrorResponse.swift */; };
+		CB9FE6CC28F4552500A6599C /* ConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE6CB28F4552500A6599C /* ConnectivityManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +78,10 @@
 		CB9FE6B228F44AC200A6599C /* APIMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIMethod.swift; sourceTree = "<group>"; };
 		CB9FE6B428F44B0C00A6599C /* AuthenticationLocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationLocalDataSource.swift; sourceTree = "<group>"; };
 		CB9FE6B628F44C7900A6599C /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		CB9FE6C528F4537C00A6599C /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		CB9FE6C728F4543D00A6599C /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		CB9FE6C928F454C800A6599C /* ErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorResponse.swift; sourceTree = "<group>"; };
+		CB9FE6CB28F4552500A6599C /* ConnectivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectivityManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,6 +211,10 @@
 				CB9FE6B228F44AC200A6599C /* APIMethod.swift */,
 				CB9FE6B428F44B0C00A6599C /* AuthenticationLocalDataSource.swift */,
 				CB9FE6B628F44C7900A6599C /* APIClient.swift */,
+				CB9FE6C928F454C800A6599C /* ErrorResponse.swift */,
+				CB9FE6C528F4537C00A6599C /* NetworkError.swift */,
+				CB9FE6C728F4543D00A6599C /* Logger.swift */,
+				CB9FE6CB28F4552500A6599C /* ConnectivityManager.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -349,6 +361,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB9FE6CC28F4552500A6599C /* ConnectivityManager.swift in Sources */,
 				CB9FE6A028F417F800A6599C /* WatchedStatusView.swift in Sources */,
 				CB9FE6B728F44C7900A6599C /* APIClient.swift in Sources */,
 				CB9FE6B128F44A9500A6599C /* APIEndpoint.swift in Sources */,
@@ -356,8 +369,11 @@
 				CB9FE69E28F4153600A6599C /* BackButton.swift in Sources */,
 				CB9FE6AA28F42EC800A6599C /* MovieDetailView.swift in Sources */,
 				CB9FE6B328F44AC200A6599C /* APIMethod.swift in Sources */,
+				CB9FE6CA28F454C800A6599C /* ErrorResponse.swift in Sources */,
+				CB9FE6C828F4543D00A6599C /* Logger.swift in Sources */,
 				CB9FE6A728F41EDD00A6599C /* Color+Extensions.swift in Sources */,
 				CB9FE6A228F4188200A6599C /* FavouriteStatusView.swift in Sources */,
+				CB9FE6C628F4537C00A6599C /* NetworkError.swift in Sources */,
 				CB9FE67228F36C4B00A6599C /* ContentView.swift in Sources */,
 				CB9FE69B28F40EBC00A6599C /* MovieRowView.swift in Sources */,
 				CB9FE6B528F44B0C00A6599C /* AuthenticationLocalDataSource.swift in Sources */,
