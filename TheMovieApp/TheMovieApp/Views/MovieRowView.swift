@@ -84,12 +84,9 @@ extension MovieRowView {
 #if DEBUG
 struct MovieRowView_Previews: PreviewProvider {
     static var previews: some View {
-        ZStack {
-            Color.black.ignoresSafeArea()
-            MovieRowView()
-                .padding()
-        }
-            .preferredColorScheme(.dark)
+        MovieRowView()
+            .padding()
+            .previewLayout(.sizeThatFits)
     }
 }
 #endif
