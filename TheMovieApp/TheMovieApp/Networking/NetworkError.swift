@@ -14,6 +14,7 @@ public enum NetworkError: Error {
     case unableToEncodeData
     case unknownError(message: String)
     case apiError(code: Int, message: String)
+    case retryError(message: String, retryAction: () -> Void)
     case serverError
     case internetConnection
     case timeout
@@ -38,7 +39,7 @@ public enum NetworkError: Error {
             return "Unknown error encountered."
         case .unauthorized:
             return "An error was encountered, try again later"
-        case .apiError(_, let message):
+        case .apiError(_, let message), .retryError(let message, _):
             return message
         }
     }
