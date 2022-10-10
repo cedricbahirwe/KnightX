@@ -10,8 +10,6 @@ import Foundation
 typealias APIError = NetworkError
 public enum NetworkError: Error {
     case invalidUrl
-    case invalidResponse
-    case invalidData
     case unableToDecodeData
     case unableToEncodeData
     case unknownError(message: String)
@@ -19,13 +17,13 @@ public enum NetworkError: Error {
     case serverError
     case internetConnection
     case timeout
+    case unauthorized
+    case dataBaseError
 
     public var message: String {
         switch self {
         case .invalidUrl:
             return "Invalid url"
-        case .invalidResponse:
-            return "The response found is not valid"
         case .unableToDecodeData:
             return "We could not process the result."
         case .unableToEncodeData:
@@ -36,8 +34,10 @@ public enum NetworkError: Error {
             return "There is an error on the server."
         case .internetConnection, .timeout:
             return "Check your internet connection and try again."
-        case .invalidData:
+        case .dataBaseError:
             return "Unknown error encountered."
+        case .unauthorized:
+            return "An error was encountered, try again later"
         case .apiError(_, let message):
             return message
         }

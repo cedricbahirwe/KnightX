@@ -9,6 +9,8 @@ import Foundation
 
 enum APIEndpoint: String {
     case topRated = "top_rated"
+    case similar = "similar"
+    case detail = "detail"
 
     var baseURL: BaseURL {
         return .moviesDB_url
