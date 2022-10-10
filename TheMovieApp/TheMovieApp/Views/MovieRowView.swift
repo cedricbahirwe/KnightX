@@ -22,12 +22,12 @@ struct MovieRowView: View {
                 statusView
             }
             .font(.system(.body, design: .rounded))
-            .foregroundColor(Color("primaryForeground"))
+            .foregroundColor(Color.foreground)
             .padding(10)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .frame(height: 170)
-        .background(Color("primaryBackground"))
+        .background(Color.rowBackground)
         .cornerRadius(20)
     }
 }
