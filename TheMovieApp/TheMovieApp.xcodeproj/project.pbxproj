@@ -25,6 +25,7 @@
 		CB9FE6B128F44A9500A6599C /* APIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE6B028F44A9500A6599C /* APIEndpoint.swift */; };
 		CB9FE6B328F44AC200A6599C /* APIMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE6B228F44AC200A6599C /* APIMethod.swift */; };
 		CB9FE6B528F44B0C00A6599C /* AuthenticationLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE6B428F44B0C00A6599C /* AuthenticationLocalDataSource.swift */; };
+		CB9FE6B728F44C7900A6599C /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE6B628F44C7900A6599C /* APIClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		CB9FE6B028F44A9500A6599C /* APIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndpoint.swift; sourceTree = "<group>"; };
 		CB9FE6B228F44AC200A6599C /* APIMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIMethod.swift; sourceTree = "<group>"; };
 		CB9FE6B428F44B0C00A6599C /* AuthenticationLocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationLocalDataSource.swift; sourceTree = "<group>"; };
+		CB9FE6B628F44C7900A6599C /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +192,7 @@
 				CB9FE6B028F44A9500A6599C /* APIEndpoint.swift */,
 				CB9FE6B228F44AC200A6599C /* APIMethod.swift */,
 				CB9FE6B428F44B0C00A6599C /* AuthenticationLocalDataSource.swift */,
+				CB9FE6B628F44C7900A6599C /* APIClient.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -325,6 +328,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB9FE6A028F417F800A6599C /* WatchedStatusView.swift in Sources */,
+				CB9FE6B728F44C7900A6599C /* APIClient.swift in Sources */,
 				CB9FE6B128F44A9500A6599C /* APIEndpoint.swift in Sources */,
 				CB9FE6A428F41E2F00A6599C /* MoviesListView.swift in Sources */,
 				CB9FE69E28F4153600A6599C /* BackButton.swift in Sources */,
