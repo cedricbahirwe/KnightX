@@ -27,7 +27,7 @@ struct MovieDetailView: View {
                     .frame(height: 270)
                     .clipped()
                     .cornerRadius(30)
-                    .foregroundColor(.gray)
+                    .foregroundColor(.celeste)
 
                 ScrollView(showsIndicators: false) {
                     VStack(alignment: .leading, spacing: 10) {
@@ -70,7 +70,13 @@ struct MovieDetailView: View {
                 BackButton()
                 Spacer()
                 WatchedStatusView(isOn: movie.isWatched)
+                    .onTapGesture {
+                        movie.isWatched.toggle()
+                    }
                 FavouriteStatusView(isOn: movie.isFavourite)
+                    .onTapGesture {
+                        movie.isFavourite.toggle()
+                    }
             }
             .foregroundColor(.celeste)
             .padding()

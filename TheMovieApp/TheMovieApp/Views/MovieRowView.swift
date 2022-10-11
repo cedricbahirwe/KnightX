@@ -41,15 +41,22 @@ struct MovieRowView: View {
 
 extension MovieRowView {
     var imageView: some View {
-        Image(systemName: "photo.fill")
+        WebImage(url: URL(string: movie.fullPosterPath ?? ""))
             .resizable()
-            .aspectRatio(1, contentMode: .fill)
+            .placeholder(Image(systemName: "photo.fill").resizable())
+            .scaledToFill()
             .frame(width: 170, height: 170)
-            .overlay(content: {
-                LinearGradient(gradient: Gradient(colors: [.black.opacity(0.3), .black.opacity(0.7)]), startPoint: .center, endPoint: .bottom)
-            })
+            .overlay {
+                LinearGradient(gradient:
+                                Gradient(
+                                    colors: [.black.opacity(0.5), .black.opacity(0.9)]),
+                               startPoint: .center,
+                               endPoint: .bottom
+                )
+            }
+            .clipped()
             .cornerRadius(20)
-            .foregroundColor(Color("primary.celeste"))
+            .foregroundColor(.celeste)
             .overlay(alignment: .bottom) {
                 ZStack {
                     if let year = movie.releaseDateFormatted {
@@ -87,7 +94,7 @@ extension MovieRowView {
                 FavouriteStatusView(isOn: movie.isFavourite)
             }
             .frame(width: 30)
-            .foregroundColor(Color("primary.celeste"))
+            .foregroundColor(.celeste)
         }
     }
 }
