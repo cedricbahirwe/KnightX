@@ -34,7 +34,7 @@ final class MoviesViewModel: BaseViewModel, ObservableObject {
                     } else {
                         self.movies.append(contentsOf: response.0)
                     }
-                    self.currentPage = response.1.lastPage
+                    self.currentPage = response.1.currentPage
                     self.isLoadingMovies = false
                 }
             }, onFailure: { [weak self] error in
@@ -46,7 +46,6 @@ final class MoviesViewModel: BaseViewModel, ObservableObject {
     }
 
     public func loadNextPage() async {
-        guard !isLoadingMovies else {  return }
         await getTopRatedMovies()
     }
 

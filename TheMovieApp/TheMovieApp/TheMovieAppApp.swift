@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct TheMovieAppApp: App {
-    @StateObject private var moviesStore = MoviesViewModel(moviesUseCase: MoviesUseCaseMockup())
+    @StateObject private var moviesStore = MoviesViewModel(moviesUseCase: MoviesUseCase())
     var body: some Scene {
         WindowGroup {
             ContentView(moviesStore)

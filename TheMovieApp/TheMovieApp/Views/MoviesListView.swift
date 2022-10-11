@@ -38,14 +38,15 @@ struct MoviesListView: View {
                             design: .rounded,
                             weight: .semibold)
                         )
+                        .foregroundColor(.celeste)
                 }
                 .padding(5)
                 .frame(maxWidth: .infinity)
                 .listRowSeparator(.hidden)
-                .listRowBackground(Color.yellow)
+                .listRowBackground(Color.background)
                 .onAppear {
                     Task {
-                        await moviesStore.refreshTopRatedMovies()
+                        await moviesStore.loadNextPage()
                     }
                 }
             }
