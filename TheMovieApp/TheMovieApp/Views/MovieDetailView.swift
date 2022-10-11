@@ -41,15 +41,21 @@ struct MovieDetailView: View {
                                           weight: .semibold))
 
                         HStack {
-                            Text("Vote:")
-                                .font(.system(.title2,
-                                              design: .rounded,
-                                              weight: .semibold))
-
-                            Text((movie.voteAverage/10).formatted(.percent))
-                                .font(.system(.title3,
-                                              design: .rounded,
-                                              weight: .regular))
+                            if let genres = movie.genres, !genres.isEmpty {
+                                Text(genres.map(\.name).joined(separator: ", "))
+                                    .font(.system(.title3,
+                                                  design: .rounded,
+                                                  weight: .regular))
+                            } else {
+                                Text("Vote:")
+                                    .font(.system(.title2,
+                                                  design: .rounded,
+                                                  weight: .semibold))
+                                Text((movie.voteAverage/10).formatted(.percent))
+                                    .font(.system(.title3,
+                                                  design: .rounded,
+                                                  weight: .regular))
+                            }
                         }
 
                         if let status = movie.status {
@@ -80,9 +86,6 @@ struct MovieDetailView: View {
                         }
                         .padding(.bottom)
                         .opacity(movieStore.similarMovies.isEmpty ? 0 : 1)
-                        .onAppear {
-                            movieStore.fetchSimilarMovies()
-                        }
                     }
                     .padding()
                 }
@@ -107,6 +110,19 @@ struct MovieDetailView: View {
             .padding()
         }
         .background(Color.background)
+        .onChange(of: movieStore.movie) { self.movie = $0 }
+        .alert(item: $movieStore.alert) { item in
+            Alert(
+                title: Text(item.title),
+                message: Text(item.message),
+                dismissButton: .default(
+                    Text("Try again!"),
+                    action: {
+                        item.action?()
+                    })
+            )
+        }
+        .onAppear(perform: movieStore.fetchMovie)
         .toolbar(.hidden)
     }
 

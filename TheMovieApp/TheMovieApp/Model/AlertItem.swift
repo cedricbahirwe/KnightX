@@ -11,9 +11,9 @@ struct AlertItem: Identifiable {
     var id: String { message }
     let title: String
     let message: String
-    var action: (() async -> Void)?
+    var action: (() -> Void)?
 
-    init(_ title: String = "Alert", message: String, action: (() async -> Void)? = nil) {
+    init(_ title: String = "Alert", message: String, action: (() -> Void)? = nil) {
         self.title = title
         self.message = message
         self.action = action

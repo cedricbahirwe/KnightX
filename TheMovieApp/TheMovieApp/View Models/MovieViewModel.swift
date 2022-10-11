@@ -44,6 +44,24 @@ final class MovieViewModel: BaseViewModel, ObservableObject {
         }).disposed(by: disposeBag)
     }
 
+    public func fetchMovie() {
+        if loadingState == .none {
+            self.loadingState = .wide
+            moviesUseCase.getMovieDetail(movie.id)
+                .subscribe(onSuccess: { [weak self] response in
+                    guard let self = self else { return }
+                    self.movie = response
+                    self.loadingState = .none
+                    self.fetchSimilarMovies()
+                }, onFailure: { [weak self] error in
+                    guard let self = self else { return }
+                    self.loadingState = .none
+                    self.handleError(error, self.fetchMovie)
+                })
+                .disposed(by: disposeBag)
+        }
+    }
+
     public func fetchSimilarMovies() {
         guard loadingState == .none else { return }
         self.loadingState = .medium
@@ -63,25 +81,6 @@ final class MovieViewModel: BaseViewModel, ObservableObject {
 
     public func clearSimilarMovies() {
         similarMovies = []
-    }
-
-    public func fetchMovie(_ movieID: Int) {
-        if loadingState == .none {
-            self.loadingState = .wide
-            moviesUseCase.getMovieDetail(movieID)
-                .subscribe(onSuccess: { [weak self] response in
-                    guard let self = self else { return }
-                    self.movie = response
-                    self.loadingState = .none
-                }, onFailure: { [weak self] error in
-                    guard let self = self else { return }
-                    self.loadingState = .none
-                    self.handleError(error) {
-                        self.fetchMovie(movieID)
-                    }
-                })
-                .disposed(by: disposeBag)
-        }
     }
 
     enum LoadingState {

@@ -72,9 +72,7 @@ struct MoviesListView: View {
                     dismissButton: .default(
                         Text("Try again!"),
                         action: {
-                            Task {
-                                await item.action?()
-                            }
+                            item.action?()
                         })
                 )
             }
