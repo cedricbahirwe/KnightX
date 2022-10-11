@@ -31,9 +31,7 @@ struct MoviesListView: View {
                     .listRowBackground(Color.background)
                     .onAppear {
                         if moviesStore.hasReachedEnd(movie) {
-                            Task {
-                                await moviesStore.fetchNextTopRatedMovies()
-                            }
+                            moviesStore.fetchNextTopRatedMovies()
                         }
                     }
                 }
@@ -81,7 +79,7 @@ struct MoviesListView: View {
                 )
             }
             .refreshable {
-                await moviesStore.refreshTopRatedMovies()
+                moviesStore.refreshTopRatedMovies()
             }
             .toolbar(.hidden)
         }

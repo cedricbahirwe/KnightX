@@ -80,8 +80,8 @@ struct MovieDetailView: View {
                         }
                         .padding(.bottom)
                         .opacity(movieStore.similarMovies.isEmpty ? 0 : 1)
-                        .task {
-                            await movieStore.fetchSimilarMovies()
+                        .onAppear {
+                            movieStore.fetchSimilarMovies()
                         }
                     }
                     .padding()

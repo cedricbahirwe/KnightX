@@ -77,8 +77,8 @@ final class MoviesViewModel: BaseViewModel, ObservableObject {
         topRatedMovies.last?.id == movie.id && loadingState == .none
     }
 
-    public func refreshTopRatedMovies() async {
-        await fetchTopRatedMovies()
+    public func refreshTopRatedMovies() {
+        fetchTopRatedMovies()
     }
 
     enum LoadingState {
