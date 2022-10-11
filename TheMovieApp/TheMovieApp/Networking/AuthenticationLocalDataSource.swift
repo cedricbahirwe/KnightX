@@ -9,6 +9,7 @@ import Foundation
 
 enum AuthenticationLocalDataSource {
     static func getAccessToken() -> String? {
-        return ""
+        // Hard Coding the token, this could stored replaced 
+        return "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxZDhhMzY0ZmNlNGU1MjY4YWM1MzI3NDJjYzk0OWEwOCIsInN1YiI6IjYzNDUzNDQzNmEzMDBiMDA3YTI0ZTk2ZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.3YwZPKFFkhoPSjg9CujYZrkic523XCpOZ0mpUnjVPtk"
     }
 }

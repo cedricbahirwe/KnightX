@@ -20,6 +20,7 @@ public enum NetworkError: Error {
     case timeout
     case unauthorized
     case dataBaseError
+    case fileNotFound(_ fileName: String)
 
     public var message: String {
         switch self {
@@ -41,6 +42,8 @@ public enum NetworkError: Error {
             return "An error was encountered, try again later"
         case .apiError(_, let message), .retryError(let message, _):
             return message
+        case .fileNotFound(let fileName):
+            return "We could not find the resource \(fileName)."
         }
     }
 }

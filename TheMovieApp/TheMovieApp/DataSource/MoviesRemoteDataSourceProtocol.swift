@@ -1,14 +1,13 @@
 //
-//  MoviesUseCaseProtocol.swift
+//  MoviesRemoteDataSourceProtocol.swift
 //  TheMovieApp
 //
-//  Created by Cédric Bahirwe on 10/10/2022.
+//  Created by Cédric Bahirwe on 11/10/2022.
 //
 
-import Foundation
 import RxSwift
 
-protocol MoviesUseCaseProtocol {
+protocol MoviesRemoteDataSourceProtocol {
     func getTopRatedMovies() -> Single<([Movie], APIMetadata)>
 
     func getSimilarMovies() -> Single<([Movie], APIMetadata)>

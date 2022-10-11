@@ -8,15 +8,23 @@
 import RxSwift
 
 final class MoviesUseCaseMockup: MoviesUseCaseProtocol {
-    func getTopRatedMovies(using filter: MoviesFilter) -> RxSwift.Single<MoviesResponse> {
-        .just(MoviesResponse())
+    private let jsonLocalDataSource: JsonLocalDataSource
+
+    public init() {
+        jsonLocalDataSource = JsonLocalDataSource()
     }
 
-    func getSimilarMovies() -> RxSwift.Single<MoviesResponse> {
-        .just(MoviesResponse())
+    func getTopRatedMovies() -> Single<([Movie], APIMetadata)> {
+        let data: Single<MoviesDataResponse> = jsonLocalDataSource.read("TopRatedMovies")
+        return data.map({ ($0.movies, $0.metadata) })
     }
 
-    func getMovieDetail(_ movieID: String) -> Single<Movie> {
-        .just(Movie())
+    func getSimilarMovies() -> RxSwift.Single<([Movie], APIMetadata)> {
+        let data: Single<MoviesDataResponse> = jsonLocalDataSource.read("SimlarMovies")
+        return data.map({ ($0.movies, $0.metadata) })
+    }
+
+    func getMovieDetail(_ movieID: String) -> RxSwift.Single<Movie> {
+        return jsonLocalDataSource.read("Movie")
     }
 }

@@ -17,6 +17,5 @@ enum APIEndpoint: String {
     }
     enum BaseURL {
         case moviesDB_url
-
     }
 }
