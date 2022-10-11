@@ -11,6 +11,10 @@ struct MoviesListView: View {
     @EnvironmentObject
     private var moviesStore: MoviesViewModel
 
+    init() {
+        // TODO: - This might break in future versions
+        UIRefreshControl.appearance().tintColor = UIColor(.celeste)
+    }
     var body: some View {
         NavigationStack {
             List {
@@ -26,6 +30,24 @@ struct MoviesListView: View {
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.background)
                 }
+
+                HStack {
+                    Text("Loading....")
+                        .font(.system(
+                            .body,
+                            design: .rounded,
+                            weight: .semibold)
+                        )
+                }
+                .padding(5)
+                .frame(maxWidth: .infinity)
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color.yellow)
+                .onAppear {
+                    Task {
+                        await moviesStore.refreshTopRatedMovies()
+                    }
+                }
             }
             .listStyle(.plain)
             .scrollContentBackground(.hidden)
@@ -33,7 +55,6 @@ struct MoviesListView: View {
             .refreshable {
                 await moviesStore.refreshTopRatedMovies()
             }
-            .tint(.red)
             .toolbar(.hidden)
         }
     }

@@ -8,9 +8,9 @@
 import RxSwift
 
 protocol MoviesRemoteDataSourceProtocol {
-    func getTopRatedMovies() -> Single<([Movie], APIMetadata)>
+    func getTopRatedMovies(_ page: Int) -> Single<([Movie], APIMetadata)>
 
-    func getSimilarMovies() -> Single<([Movie], APIMetadata)>
+    func getSimilarMovies(_ page: Int) -> Single<([Movie], APIMetadata)>
 
-    func getMovieDetail(_ movieID: String) -> Single<Movie>
+    func getMovieDetail(_ movieID: Int) -> Single<Movie>
 }
