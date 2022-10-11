@@ -9,11 +9,15 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct MovieRowView: View {
-    private let movie: Movie
-
-    init(_ movie: Movie) {
-        self.movie = movie
+    @Binding var movie: Movie
+    init(_ movie: Binding<Movie>) {
+        _movie = movie
     }
+//    private let movie: Movie
+//
+//    init(_ movie: Movie) {
+//        self.movie = movie
+//    }
 
     var body: some View {
         HStack(spacing: 0) {
@@ -91,7 +95,13 @@ extension MovieRowView {
             Spacer()
             Group {
                 WatchedStatusView(isOn: movie.isWatched)
+                    .onTapGesture {
+                        movie.isWatched.toggle()
+                    }
                 FavouriteStatusView(isOn: movie.isFavourite)
+                    .onTapGesture {
+                        movie.isFavourite.toggle()
+                    }
             }
             .frame(width: 30)
             .foregroundColor(.celeste)
@@ -102,7 +112,7 @@ extension MovieRowView {
 #if DEBUG
 struct MovieRowView_Previews: PreviewProvider {
     static var previews: some View {
-        MovieRowView(.example)
+        MovieRowView(.constant(.example))
             .padding()
             .previewLayout(.sizeThatFits)
     }

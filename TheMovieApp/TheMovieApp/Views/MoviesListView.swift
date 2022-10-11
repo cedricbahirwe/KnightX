@@ -25,7 +25,7 @@ struct MoviesListView: View {
                         } label: {
                             EmptyView()
                         }
-                        MovieRowView(movie)
+                        MovieRowView($movie)
                     }
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.background)
