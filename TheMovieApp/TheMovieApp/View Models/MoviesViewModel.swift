@@ -34,7 +34,7 @@ final class MoviesViewModel: BaseViewModel, ObservableObject {
                     } else {
                         self.movies.append(contentsOf: response.0)
                     }
-                    self.currentPage = response.1.currentPage
+                    self.currentPage = response.1.currentPage + 1
                     self.isLoadingMovies = false
                 }
             }, onFailure: { [weak self] error in

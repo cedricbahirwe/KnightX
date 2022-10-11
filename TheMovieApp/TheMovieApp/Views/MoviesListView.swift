@@ -39,6 +39,10 @@ struct MoviesListView: View {
                             weight: .semibold)
                         )
                         .foregroundColor(.celeste)
+
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                        .tint(.celeste)
                 }
                 .padding(5)
                 .frame(maxWidth: .infinity)
