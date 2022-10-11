@@ -9,7 +9,7 @@ import Foundation
 
 final class MoviesViewModel: BaseViewModel, ObservableObject {
     private let moviesUseCase: MoviesUseCaseProtocol
-    @Published private(set) var movies: [Movie]
+    @Published var movies: [Movie]
 
     init(moviesUseCase: MoviesUseCaseProtocol) {
         self.moviesUseCase = moviesUseCase

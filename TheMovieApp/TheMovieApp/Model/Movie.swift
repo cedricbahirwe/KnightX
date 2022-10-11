@@ -24,10 +24,10 @@ struct Movie: Identifiable, Codable {
     var isFavourite: Bool = false
 
     enum CodingKeys: String, CodingKey {
+        case id
         case adult
         case backdropPath = "backdrop_path"
         case genreIDS = "genre_ids"
-        case id
         case originalLanguage = "original_language"
         case originalTitle = "original_title"
         case overview, popularity
@@ -49,6 +49,14 @@ struct Movie: Identifiable, Codable {
             return releaseDateFormatted > Date.now ? "Pending" : "Released"
         } else {
             return "Unknown"
+        }
+    }
+
+    var fullPosterPath: String? {
+        if let path = (posterPath ?? backdropPath) {
+            return AppConstants.moviesImageBaseURL + path
+        } else {
+            return nil
         }
     }
 }

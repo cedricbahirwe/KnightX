@@ -52,6 +52,8 @@
 		CB9FE6F428F5777200A6599C /* JSonLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE6F228F5777200A6599C /* JSonLocalDataSource.swift */; };
 		CB9FE6F728F57AE800A6599C /* Movie+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE6F628F57AE800A6599C /* Movie+Preview.swift */; };
 		CB9FE6F828F57AE800A6599C /* Movie+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE6F628F57AE800A6599C /* Movie+Preview.swift */; };
+		CB9FE6FB28F585A000A6599C /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE6FA28F585A000A6599C /* AppConstants.swift */; };
+		CB9FE6FC28F585A000A6599C /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE6FA28F585A000A6599C /* AppConstants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +115,7 @@
 		CB9FE6EB28F5772100A6599C /* TopRatedMovies.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TopRatedMovies.json; sourceTree = "<group>"; };
 		CB9FE6F228F5777200A6599C /* JSonLocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSonLocalDataSource.swift; sourceTree = "<group>"; };
 		CB9FE6F628F57AE800A6599C /* Movie+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Movie+Preview.swift"; sourceTree = "<group>"; };
+		CB9FE6FA28F585A000A6599C /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,6 +182,7 @@
 				CB9FE6AB28F44A0A00A6599C /* Networking */,
 				CB9FE6A528F41ED000A6599C /* Extensions */,
 				CB9FE67328F36C4D00A6599C /* Assets.xcassets */,
+				CB9FE6F928F5859400A6599C /* Constants */,
 				CB9FE67528F36C4D00A6599C /* Preview Content */,
 			);
 			path = TheMovieApp;
@@ -326,6 +330,14 @@
 				CB9FE6F228F5777200A6599C /* JSonLocalDataSource.swift */,
 			);
 			path = Locals;
+			sourceTree = "<group>";
+		};
+		CB9FE6F928F5859400A6599C /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				CB9FE6FA28F585A000A6599C /* AppConstants.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -483,6 +495,7 @@
 				CB9FE6E128F4602D00A6599C /* BaseViewModel.swift in Sources */,
 				CB9FE6E928F575CA00A6599C /* MoviesRemoteDataSourceProtocol.swift in Sources */,
 				CB9FE6AA28F42EC800A6599C /* MovieDetailView.swift in Sources */,
+				CB9FE6FB28F585A000A6599C /* AppConstants.swift in Sources */,
 				CB9FE6B328F44AC200A6599C /* APIMethod.swift in Sources */,
 				CB9FE6CA28F454C800A6599C /* ErrorResponse.swift in Sources */,
 				CB9FE6C828F4543D00A6599C /* Logger.swift in Sources */,
@@ -513,6 +526,7 @@
 				CB9FE6F428F5777200A6599C /* JSonLocalDataSource.swift in Sources */,
 				CB9FE6F828F57AE800A6599C /* Movie+Preview.swift in Sources */,
 				CB9FE68128F36C4D00A6599C /* TheMovieAppTests.swift in Sources */,
+				CB9FE6FC28F585A000A6599C /* AppConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
