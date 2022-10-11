@@ -9,16 +9,12 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct MovieRowView: View {
-    @Binding var movie: Movie
-    init(_ movie: Binding<Movie>) {
+    @Binding private var movie: Movie
+    private var isSocialEnabled: Bool
+    init(_ movie: Binding<Movie>, isSocialEnabled: Bool = true) {
         _movie = movie
+        self.isSocialEnabled = isSocialEnabled
     }
-//    private let movie: Movie
-//
-//    init(_ movie: Movie) {
-//        self.movie = movie
-//    }
-
     var body: some View {
         HStack(spacing: 0) {
             imageView
@@ -28,9 +24,11 @@ struct MovieRowView: View {
                     titleView
                     descriptionView
                 }
-                .frame(maxHeight: .infinity, alignment: .top)
+                .frame(maxHeight: .infinity, alignment: .topLeading)
 
-                statusView
+                if isSocialEnabled {
+                    statusView
+                }
             }
             .font(.system(.body, design: .rounded))
             .foregroundColor(Color.foreground)

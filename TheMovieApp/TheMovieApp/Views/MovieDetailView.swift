@@ -61,11 +61,12 @@ struct MovieDetailView: View {
                         sectionView("Description:", .init(movie.overview))
 
 
-                        Section.init {
+                        Section {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack {
-                                    ForEach(moviesStore.similarMovies) { movie in
-                                        MovieRowView.init(.constant(movie))
+                                    ForEach($moviesStore.similarMovies) { $similarMovie in
+                                        MovieRowView($similarMovie, isSocialEnabled: false)
+                                            .frame(width: 350)
                                     }
                                 }
                             }
@@ -75,10 +76,11 @@ struct MovieDetailView: View {
                                               design: .rounded,
                                               weight: .semibold))
                         }
+                        .padding(.bottom)
+                        .opacity(moviesStore.similarMovies.isEmpty ? 0 : 1)
                         .task {
                             await moviesStore.fetchSimilarMovies(to: movie)
                         }
-
                     }
                     .padding()
                 }
