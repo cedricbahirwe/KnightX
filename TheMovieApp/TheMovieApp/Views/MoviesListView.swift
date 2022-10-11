@@ -29,29 +29,31 @@ struct MoviesListView: View {
                     }
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.background)
-                }
-
-                HStack {
-                    Text("Loading....")
-                        .font(.system(
-                            .body,
-                            design: .rounded,
-                            weight: .semibold)
-                        )
-                        .foregroundColor(.celeste)
-
-                    ProgressView()
-                        .progressViewStyle(.circular)
-                        .tint(.celeste)
-                }
-                .padding(5)
-                .frame(maxWidth: .infinity)
-                .listRowSeparator(.hidden)
-                .listRowBackground(Color.background)
-                .onAppear {
-                    Task {
-                        await moviesStore.loadNextPage()
+                    .onAppear {
+                        Task {
+                            await moviesStore.loadNextPage(movie)
+                        }
                     }
+                }
+
+                if moviesStore.isLoadingMovies {
+                    HStack {
+                        Text("Loading....")
+                            .font(.system(
+                                .body,
+                                design: .rounded,
+                                weight: .semibold)
+                            )
+                            .foregroundColor(.celeste)
+
+                        ProgressView()
+                            .progressViewStyle(.circular)
+                            .tint(.celeste)
+                    }
+                    .padding(5)
+                    .frame(maxWidth: .infinity)
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.background)
                 }
             }
             .listStyle(.plain)
@@ -61,6 +63,9 @@ struct MoviesListView: View {
                 await moviesStore.refreshTopRatedMovies()
             }
             .toolbar(.hidden)
+            .task {
+                await moviesStore.getTopRatedMovies()
+            }
         }
     }
 }

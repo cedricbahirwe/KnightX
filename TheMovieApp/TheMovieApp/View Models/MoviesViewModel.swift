@@ -20,23 +20,21 @@ final class MoviesViewModel: BaseViewModel, ObservableObject {
         self.currentPage = 1
     }
 
+    @MainActor
     public func getTopRatedMovies() async {
-        guard !isLoadingMovies else {  return }
-        DispatchQueue.main.async {
-            self.isLoadingMovies = true
-        }
+        guard !isLoadingMovies else { return }
+        self.isLoadingMovies = true
         moviesUseCase.getTopRatedMovies(currentPage)
             .subscribe(onSuccess: { [weak self] response in
                 guard let self = self else { return }
-                DispatchQueue.main.async {
-                    if self.currentPage == 1 {
-                        self.movies = response.0
-                    } else {
-                        self.movies.append(contentsOf: response.0)
-                    }
-                    self.currentPage = response.1.currentPage + 1
-                    self.isLoadingMovies = false
+                
+                if self.currentPage == 1 {
+                    self.movies = response.0
+                } else {
+                    self.movies.append(contentsOf: response.0)
                 }
+                self.currentPage = response.1.currentPage + 1
+                self.isLoadingMovies = false
             }, onFailure: { [weak self] error in
                 guard let self = self else { return }
                 self.isLoadingMovies = false
@@ -45,12 +43,18 @@ final class MoviesViewModel: BaseViewModel, ObservableObject {
             .disposed(by: disposeBag)
     }
 
-    public func loadNextPage() async {
+    public func loadNextPage(_ movie: Movie) async {
+        guard movies.last?.id == movie.id else { return }
+        await getTopRatedMovies()
+    }
+
+    public func hasReachedEnd(_ movie: Movie) async {
+        guard movies.last?.id == movie.id else { return }
         await getTopRatedMovies()
     }
 
     public func refreshTopRatedMovies() async {
-        guard !isLoadingMovies else {  return }
+        guard !isLoadingMovies && currentPage != 1 else {  return }
         await getTopRatedMovies()
     }
 }
