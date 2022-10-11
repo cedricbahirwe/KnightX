@@ -5,28 +5,24 @@
 //  Created by Cédric Bahirwe on 10/10/2022.
 //
 
-import Foundation
 import RxSwift
 
 final class MoviesUseCase: MoviesUseCaseProtocol {
+    private let dataSource: MoviesRemoteDataSourceProtocol
 
-    private let dataSource: MoviesRemoteDataSource
-
-    init() {
-        self.dataSource = MoviesRemoteDataSource()
+    init(_ dataSource: MoviesRemoteDataSourceProtocol = MoviesRemoteDataSource()) {
+        self.dataSource = dataSource
     }
 
-    func getTopRatedMovies(using filter: MoviesFilter) -> RxSwift.Single<MoviesResponse> {
-        dataSource.getTopRatedMovies(using: filter)
+    func getTopRatedMovies(_ page: Int) -> Single<([Movie], APIMetadata)> {
+        dataSource.getTopRatedMovies(page)
     }
 
-    func getSimilarMovies() -> RxSwift.Single<MoviesResponse> {
-        dataSource.getSimilarMovies()
+    func getSimilarMovies(_ movieID: Int) -> Single<([Movie], APIMetadata)> {
+        dataSource.getSimilarMovies(movieID)
     }
 
-    func getMovieDetail(_ movieID: String) -> Single<Movie> {
+    func getMovieDetail(_ movieID: Int) -> Single<Movie> {
         dataSource.getMovieDetail(movieID)
     }
-
-
 }

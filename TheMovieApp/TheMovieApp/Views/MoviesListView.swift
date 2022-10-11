@@ -8,25 +8,46 @@
 import SwiftUI
 
 struct MoviesListView: View {
-    struct NewsItem: Decodable, Identifiable {
-        let id: Int
-        let title: String
-        let strap: String
-    }
+    @EnvironmentObject
+    private var moviesStore: MoviesViewModel
 
-    @State private var movies = 10
+    init() {
+        // TODO: - This might break in future versions
+        UIRefreshControl.appearance().tintColor = UIColor(.celeste)
+    }
     var body: some View {
         NavigationStack {
             List {
-                ForEach(0..<movies, id:\.self) { row in
+                ForEach($moviesStore.topRatedMovies) { $movie in
                     ZStack {
                         NavigationLink {
-                            MovieDetailView()
+                            MovieDetailView($movie)
                         } label: {
                             EmptyView()
                         }
-                        MovieRowView()
+                        MovieRowView($movie)
                     }
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.background)
+                    .onAppear {
+                        if moviesStore.hasReachedEnd(movie) {
+                            moviesStore.fetchNextTopRatedMovies()
+                        }
+                    }
+                }
+
+                if moviesStore.loadingState == .small {
+                    HStack {
+                        Text("Loading....")
+                            .font(.system(
+                                .body,
+                                design: .rounded,
+                                weight: .semibold)
+                            )
+                            .foregroundColor(.celeste)
+                    }
+                    .padding(5)
+                    .frame(maxWidth: .infinity)
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.background)
                 }
@@ -34,14 +55,30 @@ struct MoviesListView: View {
             .listStyle(.plain)
             .scrollContentBackground(.hidden)
             .background(Color.background)
-            .refreshable {
-                do {
-                    let url = URL(string: "https://www.hackingwithswift.com/samples/news-1.json")!
-                    let (data, _) = try await URLSession.shared.data(from: url)
-                    movies += try JSONDecoder().decode([NewsItem].self, from: data).count / 2
-                } catch {}
+            .overlay(content: {
+                if moviesStore.loadingState == .wide {
+                    ZStack {
+                        DotsActivityView(color: .celeste)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .background(.ultraThinMaterial)
+                            .preferredColorScheme(.dark)
+                    }
+                }
+            })
+            .alert(item: $moviesStore.alert) { item in
+                Alert(
+                    title: Text(item.title),
+                    message: Text(item.message),
+                    dismissButton: .default(
+                        Text("Try again!"),
+                        action: {
+                            item.action?()
+                        })
+                )
             }
-            .tint(.red)
+            .refreshable {
+                moviesStore.refreshTopRatedMovies()
+            }
             .toolbar(.hidden)
         }
     }
@@ -51,6 +88,7 @@ struct MoviesListView: View {
 struct MoviesListView_Previews: PreviewProvider {
     static var previews: some View {
         MoviesListView()
+            .environmentObject(MoviesViewModel(moviesUseCase: MoviesUseCaseMockup()))
     }
 }
 #endif

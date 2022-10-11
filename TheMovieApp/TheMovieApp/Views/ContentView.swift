@@ -8,13 +8,22 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject private var store: MoviesViewModel
+
+    init(_ store: MoviesViewModel) {
+        self.store = store
+    }
+
     var body: some View {
         MoviesListView()
+            .environmentObject(store)
     }
 }
 
+#if DEBUG
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(MoviesViewModel(moviesUseCase: MoviesUseCaseMockup()))
     }
 }
+#endif

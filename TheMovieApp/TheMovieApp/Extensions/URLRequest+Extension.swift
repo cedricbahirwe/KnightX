@@ -8,7 +8,7 @@
 import Foundation
 
 extension URLRequest {
-    private static let moviesDBBaseUrl = "https://api.themoviedb.org/3/movie"
+    private static let moviesDBBaseUrl = "https://api.themoviedb.org/3"
 
     init(_ endpoint: APIEndpoint, _ method: APIMethod, _ parameters: [String: Any?]? = nil, customHeaders: [String: String] = [:], _ urlArgs: CVarArg...) {
 
@@ -20,7 +20,6 @@ extension URLRequest {
         processParameters(method, parameters)
         self.addValue("application/json", forHTTPHeaderField: "Accept")
         self.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        self.addValue("passenger", forHTTPHeaderField: "App-Type")
 
         for (key, value) in customHeaders {
             self.addValue(value, forHTTPHeaderField: key)

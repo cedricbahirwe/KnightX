@@ -27,6 +27,7 @@ struct BackButton: View {
             Image(systemName: "arrow.left")
                 .font(.system(.headline, design: .serif, weight: .bold))
                 .imageScale(.large)
+                .padding(5)
                 .foregroundColor(.white)
         }
     }

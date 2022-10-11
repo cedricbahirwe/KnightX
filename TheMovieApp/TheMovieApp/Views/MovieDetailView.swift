@@ -6,37 +6,86 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct MovieDetailView: View {
+    @StateObject private var movieStore: MovieViewModel
+
+    @Binding var movie: Movie
+    init(_ movie: Binding<Movie>) {
+        _movie = movie
+        _movieStore = StateObject(wrappedValue: MovieViewModel(movie.wrappedValue))
+    }
+
     var body: some View {
         ZStack(alignment: .top) {
+
             VStack(alignment: .leading, spacing: 0) {
-                Image(systemName: "photo.fill")
+                WebImage(url: URL(string: movie.fullPosterPath ?? ""))
                     .resizable()
-                    .scaledToFit()
+                    .placeholder(Image(systemName: "photo.fill").resizable())
+                    .indicator(.activity(style: .large))
+                    .scaledToFill()
                     .frame(maxWidth: .infinity)
-                    .cornerRadius(20)
-                    .foregroundColor(.gray)
+                    .frame(height: 270)
+                    .clipped()
+                    .cornerRadius(30)
+                    .foregroundColor(.celeste)
 
                 ScrollView(showsIndicators: false) {
-                    VStack(alignment: .leading, spacing: 5) {
+                    VStack(alignment: .leading, spacing: 10) {
 
-                        Text("Inside Out")
+                        Text(movie.title)
                             .font(.system(.title,
                                           design: .rounded,
                                           weight: .semibold))
 
-                        Text("Animation, comedy, adventure")
-                            .font(.system(.title3,
-                                          design: .rounded,
-                                          weight: .regular))
+                        HStack {
+                            if let genres = movie.genres, !genres.isEmpty {
+                                Text(genres.map(\.name).joined(separator: ", "))
+                                    .font(.system(.title3,
+                                                  design: .rounded,
+                                                  weight: .regular))
+                            } else {
+                                Text("Vote:")
+                                    .font(.system(.title2,
+                                                  design: .rounded,
+                                                  weight: .semibold))
+                                Text((movie.voteAverage/10).formatted(.percent))
+                                    .font(.system(.title3,
+                                                  design: .rounded,
+                                                  weight: .regular))
+                            }
+                        }
 
-                        sectionView("Status:", "Release year")
+                        if let status = movie.status {
+                            sectionView("Status:", .init(status))
+                        }
 
-                        sectionView("Release year:", "2015.")
+                        if let year = movie.releaseDateFormatted {
+                            sectionView("Release year:", "\(year.formatted(.dateTime.year())).")
+                        }
 
-                        sectionView("Description:",
-                                    "After young Riley is uprooted from her Midwest life and moved to San Francisco, her emotions - Joy, Fear, Anger, Disgust and Sadness - conflict on how best to navigate a new city, house, andschool.")
+                        sectionView("Description:", .init(movie.overview))
+
+
+                        Section {
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack {
+                                    ForEach($movieStore.similarMovies) { $similarMovie in
+                                        MovieRowView($similarMovie, isSocialEnabled: false)
+                                            .frame(width: 350)
+                                    }
+                                }
+                            }
+                        } header: {
+                            Text("Similar Movies")
+                                .font(.system(.title,
+                                              design: .rounded,
+                                              weight: .semibold))
+                        }
+                        .padding(.bottom)
+                        .opacity(movieStore.similarMovies.isEmpty ? 0 : 1)
                     }
                     .padding()
                 }
@@ -48,13 +97,32 @@ struct MovieDetailView: View {
             HStack(spacing: 15) {
                 BackButton()
                 Spacer()
-                WatchedStatusView(isOn: true)
-                FavouriteStatusView(isOn: true)
+                WatchedStatusView(isOn: movie.isWatched)
+                    .onTapGesture {
+                        movie.isWatched.toggle()
+                    }
+                FavouriteStatusView(isOn: movie.isFavourite)
+                    .onTapGesture {
+                        movie.isFavourite.toggle()
+                    }
             }
             .foregroundColor(.celeste)
             .padding()
         }
         .background(Color.background)
+        .onChange(of: movieStore.movie) { self.movie = $0 }
+        .alert(item: $movieStore.alert) { item in
+            Alert(
+                title: Text(item.title),
+                message: Text(item.message),
+                dismissButton: .default(
+                    Text("Try again!"),
+                    action: {
+                        item.action?()
+                    })
+            )
+        }
+        .onAppear(perform: movieStore.fetchMovie)
         .toolbar(.hidden)
     }
 
@@ -69,8 +137,10 @@ struct MovieDetailView: View {
     }
 }
 
+#if DEBUG
 struct MovieDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        MovieDetailView()
+        MovieDetailView(.constant(.example))
     }
 }
+#endif

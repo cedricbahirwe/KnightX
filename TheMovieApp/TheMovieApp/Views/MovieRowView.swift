@@ -6,8 +6,15 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct MovieRowView: View {
+    @Binding private var movie: Movie
+    private var isSocialEnabled: Bool
+    init(_ movie: Binding<Movie>, isSocialEnabled: Bool = true) {
+        _movie = movie
+        self.isSocialEnabled = isSocialEnabled
+    }
     var body: some View {
         HStack(spacing: 0) {
             imageView
@@ -17,9 +24,11 @@ struct MovieRowView: View {
                     titleView
                     descriptionView
                 }
-                .frame(maxHeight: .infinity, alignment: .top)
+                .frame(maxHeight: .infinity, alignment: .topLeading)
 
-                statusView
+                if isSocialEnabled {
+                    statusView
+                }
             }
             .font(.system(.body, design: .rounded))
             .foregroundColor(Color.foreground)
@@ -34,26 +43,37 @@ struct MovieRowView: View {
 
 extension MovieRowView {
     var imageView: some View {
-        Image(systemName: "photo.fill")
+        WebImage(url: URL(string: movie.fullPosterPath ?? ""))
             .resizable()
-            .aspectRatio(1, contentMode: .fill)
+            .placeholder(Image(systemName: "photo.fill").resizable())
+            .scaledToFill()
             .frame(width: 170, height: 170)
-            .overlay(content: {
-                LinearGradient(gradient: Gradient(colors: [.black.opacity(0.3), .black.opacity(0.7)]), startPoint: .center, endPoint: .bottom)
-            })
+            .overlay {
+                LinearGradient(gradient:
+                                Gradient(
+                                    colors: [.black.opacity(0.5), .black.opacity(0.9)]),
+                               startPoint: .center,
+                               endPoint: .bottom
+                )
+            }
+            .clipped()
             .cornerRadius(20)
-            .foregroundColor(Color("primary.celeste"))
+            .foregroundColor(.celeste)
             .overlay(alignment: .bottom) {
-                Text("2022")
-                    .font(.system(.title2, design: .rounded, weight: .semibold))
-                    .foregroundColor(.white)
-                    .padding(10)
-                    .frame(maxWidth: .infinity)
+                ZStack {
+                    if let year = movie.releaseDateFormatted {
+                        Text(year.formatted(.dateTime.year()))
+                            .font(.system(.title2, design: .rounded, weight: .semibold))
+                            .foregroundColor(.white)
+                            .padding(10)
+                            .frame(maxWidth: .infinity)
+                    }
+                }
             }
     }
 
     var titleView: some View {
-        Text("Fantastic Beasts: The Crimes of....")
+        Text(movie.title)
             .font(.system(
                 .title2,
                 design: .rounded,
@@ -63,8 +83,8 @@ extension MovieRowView {
     }
 
     var descriptionView: some View {
-        Text("Lore ipsum lore ipsum\nLore ipsum lore ipsum\nlore ipsum lore ipsum")
-            .lineLimit(3)
+        Text(movie.overview)
+            .lineLimit(isSocialEnabled ? 3 : nil)
             .multilineTextAlignment(.leading)
     }
 
@@ -72,11 +92,17 @@ extension MovieRowView {
         HStack(spacing: 15) {
             Spacer()
             Group {
-                WatchedStatusView(isOn: true)
-                FavouriteStatusView(isOn: false)
+                WatchedStatusView(isOn: movie.isWatched)
+                    .onTapGesture {
+                        movie.isWatched.toggle()
+                    }
+                FavouriteStatusView(isOn: movie.isFavourite)
+                    .onTapGesture {
+                        movie.isFavourite.toggle()
+                    }
             }
             .frame(width: 30)
-            .foregroundColor(Color("primary.celeste"))
+            .foregroundColor(.celeste)
         }
     }
 }
@@ -84,7 +110,7 @@ extension MovieRowView {
 #if DEBUG
 struct MovieRowView_Previews: PreviewProvider {
     static var previews: some View {
-        MovieRowView()
+        MovieRowView(.constant(.example))
             .padding()
             .previewLayout(.sizeThatFits)
     }

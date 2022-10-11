@@ -14,11 +14,13 @@ public enum NetworkError: Error {
     case unableToEncodeData
     case unknownError(message: String)
     case apiError(code: Int, message: String)
+    case retryError(message: String, retryAction: () -> Void)
     case serverError
     case internetConnection
     case timeout
     case unauthorized
     case dataBaseError
+    case fileNotFound(_ fileName: String)
 
     public var message: String {
         switch self {
@@ -38,8 +40,10 @@ public enum NetworkError: Error {
             return "Unknown error encountered."
         case .unauthorized:
             return "An error was encountered, try again later"
-        case .apiError(_, let message):
+        case .apiError(_, let message), .retryError(let message, _):
             return message
+        case .fileNotFound(let fileName):
+            return "We could not find the resource \(fileName)."
         }
     }
 }
