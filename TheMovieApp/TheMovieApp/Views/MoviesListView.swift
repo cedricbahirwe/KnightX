@@ -36,7 +36,7 @@ struct MoviesListView: View {
                     }
                 }
 
-                if moviesStore.isLoadingMovies {
+                if moviesStore.loadingState == .small {
                     HStack {
                         Text("Loading....")
                             .font(.system(
@@ -55,6 +55,16 @@ struct MoviesListView: View {
             .listStyle(.plain)
             .scrollContentBackground(.hidden)
             .background(Color.background)
+            .overlay(content: {
+                if moviesStore.loadingState == .wide {
+                    ZStack {
+                        DotsActivityView(color: .celeste)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .background(.ultraThinMaterial)
+                            .preferredColorScheme(.dark)
+                    }
+                }
+            })
             .alert(item: $moviesStore.alert) { item in
                 Alert(
                     title: Text(item.title),

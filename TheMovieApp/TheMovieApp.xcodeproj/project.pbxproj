@@ -55,6 +55,7 @@
 		CB9FE6FB28F585A000A6599C /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE6FA28F585A000A6599C /* AppConstants.swift */; };
 		CB9FE6FC28F585A000A6599C /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE6FA28F585A000A6599C /* AppConstants.swift */; };
 		CB9FE6FE28F5F84000A6599C /* AlertItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE6FD28F5F84000A6599C /* AlertItem.swift */; };
+		CB9FE70028F6042000A6599C /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE6FF28F6042000A6599C /* ActivityView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,6 +119,7 @@
 		CB9FE6F628F57AE800A6599C /* Movie+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Movie+Preview.swift"; sourceTree = "<group>"; };
 		CB9FE6FA28F585A000A6599C /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		CB9FE6FD28F5F84000A6599C /* AlertItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertItem.swift; sourceTree = "<group>"; };
+		CB9FE6FF28F6042000A6599C /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +226,7 @@
 				CB9FE6A928F42EC800A6599C /* MovieDetailView.swift */,
 				CB9FE69A28F40EBC00A6599C /* MovieRowView.swift */,
 				CB9FE69C28F4151B00A6599C /* Common Views */,
+				CB9FE6FF28F6042000A6599C /* ActivityView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -496,6 +499,7 @@
 				CB9FE6A428F41E2F00A6599C /* MoviesListView.swift in Sources */,
 				CB9FE69E28F4153600A6599C /* BackButton.swift in Sources */,
 				CB9FE6E128F4602D00A6599C /* BaseViewModel.swift in Sources */,
+				CB9FE70028F6042000A6599C /* ActivityView.swift in Sources */,
 				CB9FE6E928F575CA00A6599C /* MoviesRemoteDataSourceProtocol.swift in Sources */,
 				CB9FE6AA28F42EC800A6599C /* MovieDetailView.swift in Sources */,
 				CB9FE6FB28F585A000A6599C /* AppConstants.swift in Sources */,

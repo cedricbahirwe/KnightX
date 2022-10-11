@@ -9,7 +9,7 @@ import Foundation
 
 final class MoviesViewModel: BaseViewModel, ObservableObject {
     @Published var movies: [Movie]
-    @Published var isLoadingMovies: Bool
+    @Published var loadingState: LoadingState
     @Published var alert: AlertItem?
 
     private let moviesUseCase: MoviesUseCaseProtocol
@@ -18,7 +18,7 @@ final class MoviesViewModel: BaseViewModel, ObservableObject {
     init(moviesUseCase: MoviesUseCaseProtocol) {
         self.moviesUseCase = moviesUseCase
         self.movies = []
-        self.isLoadingMovies = false
+        self.loadingState = .none
         self.currentPage = 1
         super.init()
         subscribeToErrors()
@@ -39,8 +39,8 @@ final class MoviesViewModel: BaseViewModel, ObservableObject {
 
     @MainActor
     public func getTopRatedMovies() async {
-        guard !isLoadingMovies else { return }
-        self.isLoadingMovies = true
+        guard loadingState == .none else { return }
+        self.loadingState = .wide
         moviesUseCase.getTopRatedMovies(currentPage)
             .subscribe(onSuccess: { [weak self] response in
                 guard let self = self else { return }
@@ -51,10 +51,10 @@ final class MoviesViewModel: BaseViewModel, ObservableObject {
                     self.movies.append(contentsOf: response.0)
                 }
                 self.currentPage = response.1.currentPage + 1
-                self.isLoadingMovies = false
+                self.loadingState = .none
             }, onFailure: { [weak self] error in
                 guard let self = self else { return }
-                self.isLoadingMovies = false
+                self.loadingState = .none
                 self.handleError(error, self.getTopRatedMovies)
             })
             .disposed(by: disposeBag)
@@ -71,7 +71,14 @@ final class MoviesViewModel: BaseViewModel, ObservableObject {
     }
 
     public func refreshTopRatedMovies() async {
-        guard !isLoadingMovies && currentPage != 1 else {  return }
+        guard loadingState == .none && currentPage != 1 else {  return }
         await getTopRatedMovies()
+    }
+
+    enum LoadingState {
+        case wide
+        case medium
+        case small
+        case none
     }
 }
