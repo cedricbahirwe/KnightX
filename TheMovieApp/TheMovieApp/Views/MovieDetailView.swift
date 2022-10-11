@@ -9,6 +9,7 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct MovieDetailView: View {
+    @EnvironmentObject private var moviesStore: MoviesViewModel
     @Binding var movie: Movie
     init(_ movie: Binding<Movie>) {
         _movie = movie
@@ -58,6 +59,26 @@ struct MovieDetailView: View {
                         }
 
                         sectionView("Description:", .init(movie.overview))
+
+
+                        Section.init {
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack {
+                                    ForEach(moviesStore.similarMovies) { movie in
+                                        MovieRowView.init(.constant(movie))
+                                    }
+                                }
+                            }
+                        } header: {
+                            Text("Similar Movies")
+                                .font(.system(.title,
+                                              design: .rounded,
+                                              weight: .semibold))
+                        }
+                        .task {
+                            await moviesStore.fetchSimilarMovies(to: movie)
+                        }
+
                     }
                     .padding()
                 }
@@ -82,6 +103,7 @@ struct MovieDetailView: View {
             .padding()
         }
         .background(Color.background)
+        .onDisappear(perform: moviesStore.clearSimilarMovies)
         .toolbar(.hidden)
     }
 

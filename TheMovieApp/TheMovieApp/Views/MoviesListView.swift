@@ -18,7 +18,7 @@ struct MoviesListView: View {
     var body: some View {
         NavigationStack {
             List {
-                ForEach($moviesStore.movies) { $movie in
+                ForEach($moviesStore.topRatedMovies) { $movie in
                     ZStack {
                         NavigationLink {
                             MovieDetailView($movie)

@@ -20,7 +20,7 @@ final class MoviesUseCaseMockup: MoviesUseCaseProtocol {
         return data.map({ ($0.movies, $0.metadata) })
     }
 
-    func getSimilarMovies(_ page: Int) -> Single<([Movie], APIMetadata)> {
+    func getSimilarMovies(_ movieID: Int) -> Single<([Movie], APIMetadata)> {
         let data: Single<MoviesDataResponse> = jsonLocalDataSource.read("SimlarMovies")
         return data.map({ ($0.movies, $0.metadata) })
     }

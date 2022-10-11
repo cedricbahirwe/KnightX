@@ -8,7 +8,8 @@
 import Foundation
 
 final class MoviesViewModel: BaseViewModel, ObservableObject {
-    @Published var movies: [Movie]
+    @Published var topRatedMovies: [Movie]
+    @Published var similarMovies: [Movie]
     @Published var loadingState: LoadingState
     @Published var alert: AlertItem?
 
@@ -17,7 +18,8 @@ final class MoviesViewModel: BaseViewModel, ObservableObject {
 
     init(moviesUseCase: MoviesUseCaseProtocol) {
         self.moviesUseCase = moviesUseCase
-        self.movies = []
+        self.topRatedMovies = []
+        self.similarMovies = []
         self.loadingState = .none
         self.currentPage = 1
         super.init()
@@ -45,7 +47,7 @@ final class MoviesViewModel: BaseViewModel, ObservableObject {
         moviesUseCase.getTopRatedMovies(currentPage)
             .subscribe(onSuccess: { [weak self] response in
                 guard let self = self else { return }
-                self.movies = response.0
+                self.topRatedMovies = response.0
                 self.currentPage = response.1.currentPage + 1
                 self.loadingState = .none
             }, onFailure: { [weak self] error in
@@ -56,7 +58,6 @@ final class MoviesViewModel: BaseViewModel, ObservableObject {
             .disposed(by: disposeBag)
     }
 
-
     @MainActor
     public func fetchNextTopRatedMovies() async {
         guard loadingState == .none else { return }
@@ -64,7 +65,7 @@ final class MoviesViewModel: BaseViewModel, ObservableObject {
         moviesUseCase.getTopRatedMovies(currentPage)
             .subscribe(onSuccess: { [weak self] response in
                 guard let self = self else { return }
-                self.movies += response.0
+                self.topRatedMovies += response.0
                 self.currentPage = response.1.currentPage + 1
                 self.loadingState = .none
             }, onFailure: { [weak self] error in
@@ -75,8 +76,32 @@ final class MoviesViewModel: BaseViewModel, ObservableObject {
             .disposed(by: disposeBag)
     }
 
+    @MainActor
+    public func fetchSimilarMovies(to movie: Movie) async {
+        guard loadingState == .none else { return }
+        self.loadingState = .wide
+        moviesUseCase.getSimilarMovies(movie.id)
+            .subscribe(onSuccess: { [weak self] response in
+                guard let self = self else { return }
+                self.similarMovies += response.0
+                self.currentPage = response.1.currentPage + 1
+                self.loadingState = .none
+            }, onFailure: { [weak self] error in
+                guard let self = self else { return }
+                self.loadingState = .none
+                self.handleError(error) {
+                    await  self.fetchSimilarMovies(to: movie)
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+
+    public func clearSimilarMovies() {
+        similarMovies = []
+    }
+
     public func hasReachedEnd(_ movie: Movie) -> Bool {
-        movies.last?.id == movie.id && loadingState == .none
+        topRatedMovies.last?.id == movie.id && loadingState == .none
     }
 
     public func refreshTopRatedMovies() async {

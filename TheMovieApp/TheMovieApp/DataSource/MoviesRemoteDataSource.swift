@@ -9,15 +9,15 @@ import Foundation
 import RxSwift
 
 final class MoviesRemoteDataSource: BaseRemoteDataSource, MoviesRemoteDataSourceProtocol {
-    func getTopRatedMovies(_ page: Int) -> RxSwift.Single<([Movie], APIMetadata)> {
+    func getTopRatedMovies(_ page: Int) -> Single<([Movie], APIMetadata)> {
         requestTopMovies(page).map({ ($0.0.movies, $0.0.metadata) })
     }
 
-    func getSimilarMovies(_ page: Int) -> RxSwift.Single<([Movie], APIMetadata)> {
-        requestSimilarMovies(page).map({ ($0.0.movies, $0.0.metadata) })
+    func getSimilarMovies(_ movieID: Int) -> Single<([Movie], APIMetadata)> {
+        requestSimilarMovies(movieID).map({ ($0.0.movies, $0.0.metadata) })
     }
 
-    func getMovieDetail(_ movieID: Int) -> RxSwift.Single<Movie> {
+    func getMovieDetail(_ movieID: Int) -> Single<Movie> {
         requestMovieDetail(movieID).map({ $0.0 })
     }
 }
@@ -29,14 +29,13 @@ private extension MoviesRemoteDataSource {
         return apiRequest(urlRequest)
     }
 
-    func requestSimilarMovies(_ page: Int) -> Single<(MoviesDataResponse, HTTPURLResponse)> {
-        let params: [String: Any] = ["page": page]
-        let urlRequest = URLRequest(.similar, .get, params)
+    func requestSimilarMovies(_ movieID: Int) -> Single<(MoviesDataResponse, HTTPURLResponse)> {
+        let urlRequest = URLRequest(.similarMovies, .get, nil, movieID)
         return apiRequest(urlRequest)
     }
 
     func requestMovieDetail(_ movieID: Int) -> Single<(Movie, HTTPURLResponse)> {
-        let urlRequest = URLRequest(.detail, .get)
+        let urlRequest = URLRequest(.movieDetail, .get, nil, movieID)
         return apiRequest(urlRequest)
     }
 }

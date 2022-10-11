@@ -18,8 +18,8 @@ final class MoviesUseCase: MoviesUseCaseProtocol {
         dataSource.getTopRatedMovies(page)
     }
 
-    func getSimilarMovies(_ page: Int) -> Single<([Movie], APIMetadata)> {
-        dataSource.getSimilarMovies(page)
+    func getSimilarMovies(_ movieID: Int) -> Single<([Movie], APIMetadata)> {
+        dataSource.getSimilarMovies(movieID)
     }
 
     func getMovieDetail(_ movieID: Int) -> Single<Movie> {
