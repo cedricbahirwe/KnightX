@@ -11,18 +11,43 @@ struct MoviesListView: View {
     @EnvironmentObject
     private var moviesStore: MoviesViewModel
 
+    init() {
+        // TODO: - This might break in future versions
+        UIRefreshControl.appearance().tintColor = UIColor(.celeste)
+    }
     var body: some View {
         NavigationStack {
             List {
-                ForEach($moviesStore.movies) { $movie in
+                ForEach($moviesStore.topRatedMovies) { $movie in
                     ZStack {
                         NavigationLink {
                             MovieDetailView($movie)
                         } label: {
                             EmptyView()
                         }
-                        MovieRowView(movie)
+                        MovieRowView($movie)
                     }
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.background)
+                    .onAppear {
+                        if moviesStore.hasReachedEnd(movie) {
+                            moviesStore.fetchNextTopRatedMovies()
+                        }
+                    }
+                }
+
+                if moviesStore.loadingState == .small {
+                    HStack {
+                        Text("Loading....")
+                            .font(.system(
+                                .body,
+                                design: .rounded,
+                                weight: .semibold)
+                            )
+                            .foregroundColor(.celeste)
+                    }
+                    .padding(5)
+                    .frame(maxWidth: .infinity)
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.background)
                 }
@@ -30,10 +55,30 @@ struct MoviesListView: View {
             .listStyle(.plain)
             .scrollContentBackground(.hidden)
             .background(Color.background)
-            .refreshable {
-                await moviesStore.refreshTopRatedMovies()
+            .overlay(content: {
+                if moviesStore.loadingState == .wide {
+                    ZStack {
+                        DotsActivityView(color: .celeste)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .background(.ultraThinMaterial)
+                            .preferredColorScheme(.dark)
+                    }
+                }
+            })
+            .alert(item: $moviesStore.alert) { item in
+                Alert(
+                    title: Text(item.title),
+                    message: Text(item.message),
+                    dismissButton: .default(
+                        Text("Try again!"),
+                        action: {
+                            item.action?()
+                        })
+                )
             }
-            .tint(.red)
+            .refreshable {
+                moviesStore.refreshTopRatedMovies()
+            }
             .toolbar(.hidden)
         }
     }

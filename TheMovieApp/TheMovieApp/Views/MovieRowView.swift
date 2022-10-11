@@ -9,12 +9,12 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct MovieRowView: View {
-    private let movie: Movie
-
-    init(_ movie: Movie) {
-        self.movie = movie
+    @Binding private var movie: Movie
+    private var isSocialEnabled: Bool
+    init(_ movie: Binding<Movie>, isSocialEnabled: Bool = true) {
+        _movie = movie
+        self.isSocialEnabled = isSocialEnabled
     }
-
     var body: some View {
         HStack(spacing: 0) {
             imageView
@@ -24,9 +24,11 @@ struct MovieRowView: View {
                     titleView
                     descriptionView
                 }
-                .frame(maxHeight: .infinity, alignment: .top)
+                .frame(maxHeight: .infinity, alignment: .topLeading)
 
-                statusView
+                if isSocialEnabled {
+                    statusView
+                }
             }
             .font(.system(.body, design: .rounded))
             .foregroundColor(Color.foreground)
@@ -82,7 +84,7 @@ extension MovieRowView {
 
     var descriptionView: some View {
         Text(movie.overview)
-            .lineLimit(3)
+            .lineLimit(isSocialEnabled ? 3 : nil)
             .multilineTextAlignment(.leading)
     }
 
@@ -91,7 +93,13 @@ extension MovieRowView {
             Spacer()
             Group {
                 WatchedStatusView(isOn: movie.isWatched)
+                    .onTapGesture {
+                        movie.isWatched.toggle()
+                    }
                 FavouriteStatusView(isOn: movie.isFavourite)
+                    .onTapGesture {
+                        movie.isFavourite.toggle()
+                    }
             }
             .frame(width: 30)
             .foregroundColor(.celeste)
@@ -102,7 +110,7 @@ extension MovieRowView {
 #if DEBUG
 struct MovieRowView_Previews: PreviewProvider {
     static var previews: some View {
-        MovieRowView(.example)
+        MovieRowView(.constant(.example))
             .padding()
             .previewLayout(.sizeThatFits)
     }

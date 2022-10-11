@@ -9,9 +9,12 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct MovieDetailView: View {
+    @StateObject private var movieStore: MovieViewModel
+
     @Binding var movie: Movie
     init(_ movie: Binding<Movie>) {
         _movie = movie
+        _movieStore = StateObject(wrappedValue: MovieViewModel(movie.wrappedValue))
     }
 
     var body: some View {
@@ -38,15 +41,21 @@ struct MovieDetailView: View {
                                           weight: .semibold))
 
                         HStack {
-                            Text("Vote:")
-                                .font(.system(.title2,
-                                              design: .rounded,
-                                              weight: .semibold))
-
-                            Text((movie.voteAverage/10).formatted(.percent))
-                                .font(.system(.title3,
-                                              design: .rounded,
-                                              weight: .regular))
+                            if let genres = movie.genres, !genres.isEmpty {
+                                Text(genres.map(\.name).joined(separator: ", "))
+                                    .font(.system(.title3,
+                                                  design: .rounded,
+                                                  weight: .regular))
+                            } else {
+                                Text("Vote:")
+                                    .font(.system(.title2,
+                                                  design: .rounded,
+                                                  weight: .semibold))
+                                Text((movie.voteAverage/10).formatted(.percent))
+                                    .font(.system(.title3,
+                                                  design: .rounded,
+                                                  weight: .regular))
+                            }
                         }
 
                         if let status = movie.status {
@@ -58,6 +67,25 @@ struct MovieDetailView: View {
                         }
 
                         sectionView("Description:", .init(movie.overview))
+
+
+                        Section {
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack {
+                                    ForEach($movieStore.similarMovies) { $similarMovie in
+                                        MovieRowView($similarMovie, isSocialEnabled: false)
+                                            .frame(width: 350)
+                                    }
+                                }
+                            }
+                        } header: {
+                            Text("Similar Movies")
+                                .font(.system(.title,
+                                              design: .rounded,
+                                              weight: .semibold))
+                        }
+                        .padding(.bottom)
+                        .opacity(movieStore.similarMovies.isEmpty ? 0 : 1)
                     }
                     .padding()
                 }
@@ -82,6 +110,19 @@ struct MovieDetailView: View {
             .padding()
         }
         .background(Color.background)
+        .onChange(of: movieStore.movie) { self.movie = $0 }
+        .alert(item: $movieStore.alert) { item in
+            Alert(
+                title: Text(item.title),
+                message: Text(item.message),
+                dismissButton: .default(
+                    Text("Try again!"),
+                    action: {
+                        item.action?()
+                    })
+            )
+        }
+        .onAppear(perform: movieStore.fetchMovie)
         .toolbar(.hidden)
     }
 

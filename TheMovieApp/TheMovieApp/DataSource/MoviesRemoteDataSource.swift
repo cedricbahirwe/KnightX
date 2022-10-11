@@ -9,32 +9,33 @@ import Foundation
 import RxSwift
 
 final class MoviesRemoteDataSource: BaseRemoteDataSource, MoviesRemoteDataSourceProtocol {
-    func getTopRatedMovies() -> Single<([Movie], APIMetadata)> {
-        requestMovies().map({ ($0.0.movies, $0.0.metadata) })
+    func getTopRatedMovies(_ page: Int) -> Single<([Movie], APIMetadata)> {
+        requestTopMovies(page).map({ ($0.0.movies, $0.0.metadata) })
     }
 
-    func getSimilarMovies() -> Single<([Movie], APIMetadata)> {
-        requestSimilarMovies().map({ ($0.0.movies, $0.0.metadata) })
+    func getSimilarMovies(_ movieID: Int) -> Single<([Movie], APIMetadata)> {
+        requestSimilarMovies(movieID).map({ ($0.0.movies, $0.0.metadata) })
     }
 
-    func getMovieDetail(_ movieID: String) -> Single<Movie> {
-        requestMovieDetail().map({ $0.0 })
+    func getMovieDetail(_ movieID: Int) -> Single<Movie> {
+        requestMovieDetail(movieID).map({ $0.0 })
     }
 }
 
 private extension MoviesRemoteDataSource {
-    func requestMovies() -> Single<(MoviesDataResponse, HTTPURLResponse)> {
-        let urlRequest = URLRequest(.topRated, .get)
+    func requestTopMovies(_ page: Int) -> Single<(MoviesDataResponse, HTTPURLResponse)> {
+        let params: [String: Any] = ["page": page]
+        let urlRequest = URLRequest(.topRated, .get, params)
         return apiRequest(urlRequest)
     }
 
-    func requestSimilarMovies() -> Single<(MoviesDataResponse, HTTPURLResponse)> {
-        let urlRequest = URLRequest(.similar, .get)
+    func requestSimilarMovies(_ movieID: Int) -> Single<(MoviesDataResponse, HTTPURLResponse)> {
+        let urlRequest = URLRequest(.similarMovies, .get, nil, movieID)
         return apiRequest(urlRequest)
     }
 
-    func requestMovieDetail() -> Single<(Movie, HTTPURLResponse)> {
-        let urlRequest = URLRequest(.detail, .get)
+    func requestMovieDetail(_ movieID: Int) -> Single<(Movie, HTTPURLResponse)> {
+        let urlRequest = URLRequest(.movieDetail, .get, nil, movieID)
         return apiRequest(urlRequest)
     }
 }

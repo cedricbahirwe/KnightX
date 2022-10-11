@@ -8,7 +8,7 @@
 import Foundation
 
 extension URLRequest {
-    private static let moviesDBBaseUrl = "https://api.themoviedb.org/3/movie/"
+    private static let moviesDBBaseUrl = "https://api.themoviedb.org/3"
 
     init(_ endpoint: APIEndpoint, _ method: APIMethod, _ parameters: [String: Any?]? = nil, customHeaders: [String: String] = [:], _ urlArgs: CVarArg...) {
 
