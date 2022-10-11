@@ -84,7 +84,7 @@ extension MovieRowView {
 
     var descriptionView: some View {
         Text(movie.overview)
-            .lineLimit(3)
+            .lineLimit(isSocialEnabled ? 3 : nil)
             .multilineTextAlignment(.leading)
     }
 

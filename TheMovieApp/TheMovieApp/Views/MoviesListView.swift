@@ -84,9 +84,6 @@ struct MoviesListView: View {
                 await moviesStore.refreshTopRatedMovies()
             }
             .toolbar(.hidden)
-            .task {
-                await moviesStore.fetchTopRatedMovies()
-            }
         }
     }
 }

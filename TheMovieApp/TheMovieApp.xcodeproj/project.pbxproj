@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CB0F6DC528F6158100A6B767 /* MovieViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0F6DC428F6158100A6B767 /* MovieViewModel.swift */; };
 		CB9FE67028F36C4B00A6599C /* TheMovieAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE66F28F36C4B00A6599C /* TheMovieAppApp.swift */; };
 		CB9FE67228F36C4B00A6599C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE67128F36C4B00A6599C /* ContentView.swift */; };
 		CB9FE67428F36C4D00A6599C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB9FE67328F36C4D00A6599C /* Assets.xcassets */; };
@@ -76,6 +77,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CB0F6DC428F6158100A6B767 /* MovieViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewModel.swift; sourceTree = "<group>"; };
 		CB9FE66C28F36C4B00A6599C /* TheMovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheMovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB9FE66F28F36C4B00A6599C /* TheMovieAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheMovieAppApp.swift; sourceTree = "<group>"; };
 		CB9FE67128F36C4B00A6599C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -310,6 +312,7 @@
 			children = (
 				CB9FE6E028F4602D00A6599C /* BaseViewModel.swift */,
 				CB9FE6E228F4603700A6599C /* MoviesViewModel.swift */,
+				CB0F6DC428F6158100A6B767 /* MovieViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -516,6 +519,7 @@
 				CB9FE6FE28F5F84000A6599C /* AlertItem.swift in Sources */,
 				CB9FE6E728F5733A00A6599C /* APIMetaDataResponse.swift in Sources */,
 				CB9FE6D528F4586300A6599C /* MoviesResponse.swift in Sources */,
+				CB0F6DC528F6158100A6B767 /* MovieViewModel.swift in Sources */,
 				CB9FE6B528F44B0C00A6599C /* AuthenticationLocalDataSource.swift in Sources */,
 				CB9FE6DA28F4591F00A6599C /* MoviesUseCase.swift in Sources */,
 				CB9FE6E328F4603700A6599C /* MoviesViewModel.swift in Sources */,

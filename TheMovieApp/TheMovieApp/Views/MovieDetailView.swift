@@ -9,10 +9,12 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct MovieDetailView: View {
-    @EnvironmentObject private var moviesStore: MoviesViewModel
+    @StateObject private var movieStore: MovieViewModel
+
     @Binding var movie: Movie
     init(_ movie: Binding<Movie>) {
         _movie = movie
+        _movieStore = StateObject(wrappedValue: MovieViewModel(movie.wrappedValue))
     }
 
     var body: some View {
@@ -64,7 +66,7 @@ struct MovieDetailView: View {
                         Section {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack {
-                                    ForEach($moviesStore.similarMovies) { $similarMovie in
+                                    ForEach($movieStore.similarMovies) { $similarMovie in
                                         MovieRowView($similarMovie, isSocialEnabled: false)
                                             .frame(width: 350)
                                     }
@@ -77,9 +79,9 @@ struct MovieDetailView: View {
                                               weight: .semibold))
                         }
                         .padding(.bottom)
-                        .opacity(moviesStore.similarMovies.isEmpty ? 0 : 1)
+                        .opacity(movieStore.similarMovies.isEmpty ? 0 : 1)
                         .task {
-                            await moviesStore.fetchSimilarMovies(to: movie)
+                            await movieStore.fetchSimilarMovies()
                         }
                     }
                     .padding()
@@ -105,7 +107,6 @@ struct MovieDetailView: View {
             .padding()
         }
         .background(Color.background)
-        .onDisappear(perform: moviesStore.clearSimilarMovies)
         .toolbar(.hidden)
     }
 
