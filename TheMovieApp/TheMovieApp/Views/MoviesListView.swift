@@ -45,10 +45,6 @@ struct MoviesListView: View {
                                 weight: .semibold)
                             )
                             .foregroundColor(.celeste)
-
-                        ProgressView()
-                            .progressViewStyle(.circular)
-                            .tint(.celeste)
                     }
                     .padding(5)
                     .frame(maxWidth: .infinity)
@@ -59,6 +55,19 @@ struct MoviesListView: View {
             .listStyle(.plain)
             .scrollContentBackground(.hidden)
             .background(Color.background)
+            .alert(item: $moviesStore.alert) { item in
+                Alert(
+                    title: Text(item.title),
+                    message: Text(item.message),
+                    dismissButton: .default(
+                        Text("Try again!"),
+                        action: {
+                            Task {
+                                await item.action?()
+                            }
+                        })
+                )
+            }
             .refreshable {
                 await moviesStore.refreshTopRatedMovies()
             }

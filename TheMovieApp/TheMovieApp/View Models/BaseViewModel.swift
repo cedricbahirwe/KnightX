@@ -13,11 +13,11 @@ class BaseViewModel {
     let errorRelay = PublishRelay<Error>()
     let loadingRelay = PublishRelay<Bool>()
 
-    func handleError(_ error: Error, _ retryAction: @escaping (() -> Void)) {
+    func handleError(_ error: Error, _ retryAction: @escaping (() async -> Void)) {
         errorRelay.accept(parseApiErrorToRetry(error, retryAction))
     }
 
-    private func parseApiErrorToRetry(_ error: Error, _ retryAction: @escaping (() -> Void)) -> Error {
+    private func parseApiErrorToRetry(_ error: Error, _ retryAction: @escaping (() async -> Void)) -> Error {
         switch error {
         case APIError.apiError(_, let message):
             return APIError.retryError(message: message, retryAction: retryAction)

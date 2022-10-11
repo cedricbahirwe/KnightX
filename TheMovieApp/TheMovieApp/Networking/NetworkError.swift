@@ -14,7 +14,7 @@ public enum NetworkError: Error {
     case unableToEncodeData
     case unknownError(message: String)
     case apiError(code: Int, message: String)
-    case retryError(message: String, retryAction: () -> Void)
+    case retryError(message: String, retryAction: () async -> Void)
     case serverError
     case internetConnection
     case timeout
