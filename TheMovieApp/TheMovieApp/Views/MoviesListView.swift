@@ -30,8 +30,10 @@ struct MoviesListView: View {
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.background)
                     .onAppear {
-                        Task {
-                            await moviesStore.loadNextPage(movie)
+                        if moviesStore.hasReachedEnd(movie) {
+                            Task {
+                                await moviesStore.fetchNextTopRatedMovies()
+                            }
                         }
                     }
                 }
@@ -83,7 +85,7 @@ struct MoviesListView: View {
             }
             .toolbar(.hidden)
             .task {
-                await moviesStore.getTopRatedMovies()
+                await moviesStore.fetchTopRatedMovies()
             }
         }
     }

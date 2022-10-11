@@ -38,41 +38,49 @@ final class MoviesViewModel: BaseViewModel, ObservableObject {
     }
 
     @MainActor
-    public func getTopRatedMovies() async {
+    public func fetchTopRatedMovies() async {
         guard loadingState == .none else { return }
         self.loadingState = .wide
+        currentPage = 1
         moviesUseCase.getTopRatedMovies(currentPage)
             .subscribe(onSuccess: { [weak self] response in
                 guard let self = self else { return }
-                
-                if self.currentPage == 1 {
-                    self.movies = response.0
-                } else {
-                    self.movies.append(contentsOf: response.0)
-                }
+                self.movies = response.0
                 self.currentPage = response.1.currentPage + 1
                 self.loadingState = .none
             }, onFailure: { [weak self] error in
                 guard let self = self else { return }
                 self.loadingState = .none
-                self.handleError(error, self.getTopRatedMovies)
+                self.handleError(error, self.fetchTopRatedMovies)
             })
             .disposed(by: disposeBag)
     }
 
-    public func loadNextPage(_ movie: Movie) async {
-        guard movies.last?.id == movie.id else { return }
-        await getTopRatedMovies()
+
+    @MainActor
+    public func fetchNextTopRatedMovies() async {
+        guard loadingState == .none else { return }
+        self.loadingState = .small
+        moviesUseCase.getTopRatedMovies(currentPage)
+            .subscribe(onSuccess: { [weak self] response in
+                guard let self = self else { return }
+                self.movies += response.0
+                self.currentPage = response.1.currentPage + 1
+                self.loadingState = .none
+            }, onFailure: { [weak self] error in
+                guard let self = self else { return }
+                self.loadingState = .none
+                self.handleError(error, self.fetchNextTopRatedMovies)
+            })
+            .disposed(by: disposeBag)
     }
 
-    public func hasReachedEnd(_ movie: Movie) async {
-        guard movies.last?.id == movie.id else { return }
-        await getTopRatedMovies()
+    public func hasReachedEnd(_ movie: Movie) -> Bool {
+        movies.last?.id == movie.id && loadingState == .none
     }
 
     public func refreshTopRatedMovies() async {
-        guard loadingState == .none && currentPage != 1 else {  return }
-        await getTopRatedMovies()
+        await fetchTopRatedMovies()
     }
 
     enum LoadingState {
