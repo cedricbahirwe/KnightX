@@ -6,8 +6,15 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct MovieRowView: View {
+    private let movie: Movie
+
+    init(_ movie: Movie) {
+        self.movie = movie
+    }
+
     var body: some View {
         HStack(spacing: 0) {
             imageView
@@ -44,16 +51,20 @@ extension MovieRowView {
             .cornerRadius(20)
             .foregroundColor(Color("primary.celeste"))
             .overlay(alignment: .bottom) {
-                Text("2022")
-                    .font(.system(.title2, design: .rounded, weight: .semibold))
-                    .foregroundColor(.white)
-                    .padding(10)
-                    .frame(maxWidth: .infinity)
+                ZStack {
+                    if let year = movie.releaseDateFormatted {
+                        Text(year.formatted(.dateTime.year()))
+                            .font(.system(.title2, design: .rounded, weight: .semibold))
+                            .foregroundColor(.white)
+                            .padding(10)
+                            .frame(maxWidth: .infinity)
+                    }
+                }
             }
     }
 
     var titleView: some View {
-        Text("Fantastic Beasts: The Crimes of....")
+        Text(movie.title)
             .font(.system(
                 .title2,
                 design: .rounded,
@@ -63,7 +74,7 @@ extension MovieRowView {
     }
 
     var descriptionView: some View {
-        Text("Lore ipsum lore ipsum\nLore ipsum lore ipsum\nlore ipsum lore ipsum")
+        Text(movie.overview)
             .lineLimit(3)
             .multilineTextAlignment(.leading)
     }
@@ -72,8 +83,8 @@ extension MovieRowView {
         HStack(spacing: 15) {
             Spacer()
             Group {
-                WatchedStatusView(isOn: true)
-                FavouriteStatusView(isOn: false)
+                WatchedStatusView(isOn: movie.isWatched)
+                FavouriteStatusView(isOn: movie.isFavourite)
             }
             .frame(width: 30)
             .foregroundColor(Color("primary.celeste"))
@@ -84,7 +95,7 @@ extension MovieRowView {
 #if DEBUG
 struct MovieRowView_Previews: PreviewProvider {
     static var previews: some View {
-        MovieRowView()
+        MovieRowView(.example)
             .padding()
             .previewLayout(.sizeThatFits)
     }

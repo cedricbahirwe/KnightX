@@ -7,17 +7,21 @@
 
 import Foundation
 
-struct Movie: Codable {
-    let adult: Bool
-    let backdropPath: String
-    let genreIDS: [Int]
+struct Movie: Identifiable, Codable {
     let id: Int
+    let adult: Bool
+    let backdropPath: String?
+    let genreIDS: [Int]
     let originalLanguage, originalTitle, overview: String
     let popularity: Double
-    let posterPath, releaseDate, title: String
+    let posterPath: String?
+    let releaseDate, title: String
     let video: Bool
     let voteAverage: Double
     let voteCount: Int
+
+    var isWatched: Bool = false
+    var isFavourite: Bool = false
 
     enum CodingKeys: String, CodingKey {
         case adult
@@ -32,5 +36,19 @@ struct Movie: Codable {
         case title, video
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
+    }
+
+    var releaseDateFormatted: Date? {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-mm-dd"
+        return formatter.date(from: releaseDate)
+    }
+
+    var status: String? {
+        if let releaseDateFormatted {
+            return releaseDateFormatted > Date.now ? "Pending" : "Released"
+        } else {
+            return "Unknown"
+        }
     }
 }

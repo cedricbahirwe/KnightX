@@ -8,24 +8,20 @@
 import SwiftUI
 
 struct MoviesListView: View {
-    struct NewsItem: Decodable, Identifiable {
-        let id: Int
-        let title: String
-        let strap: String
-    }
+    @EnvironmentObject
+    private var moviesStore: MoviesViewModel
 
-    @State private var movies = 10
     var body: some View {
         NavigationStack {
             List {
-                ForEach(0..<movies, id:\.self) { row in
+                ForEach(moviesStore.movies) { movie in
                     ZStack {
                         NavigationLink {
-                            MovieDetailView()
+                            MovieDetailView(movie)
                         } label: {
                             EmptyView()
                         }
-                        MovieRowView()
+                        MovieRowView(movie)
                     }
                     .listRowSeparator(.hidden)
                     .listRowBackground(Color.background)
@@ -35,11 +31,7 @@ struct MoviesListView: View {
             .scrollContentBackground(.hidden)
             .background(Color.background)
             .refreshable {
-                do {
-                    let url = URL(string: "https://www.hackingwithswift.com/samples/news-1.json")!
-                    let (data, _) = try await URLSession.shared.data(from: url)
-                    movies += try JSONDecoder().decode([NewsItem].self, from: data).count / 2
-                } catch {}
+                await moviesStore.refreshTopRatedMovies()
             }
             .tint(.red)
             .toolbar(.hidden)
@@ -51,6 +43,7 @@ struct MoviesListView: View {
 struct MoviesListView_Previews: PreviewProvider {
     static var previews: some View {
         MoviesListView()
+            .environmentObject(MoviesViewModel(moviesUseCase: MoviesUseCaseMockup()))
     }
 }
 #endif

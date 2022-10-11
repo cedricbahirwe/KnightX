@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct MovieDetailView: View {
+    init(_ movie: Movie) {
+        self.movie = movie
+    }
+
+    private var movie: Movie
     var body: some View {
         ZStack(alignment: .top) {
             VStack(alignment: .leading, spacing: 0) {
@@ -21,7 +26,7 @@ struct MovieDetailView: View {
                 ScrollView(showsIndicators: false) {
                     VStack(alignment: .leading, spacing: 5) {
 
-                        Text("Inside Out")
+                        Text(movie.title)
                             .font(.system(.title,
                                           design: .rounded,
                                           weight: .semibold))
@@ -31,7 +36,9 @@ struct MovieDetailView: View {
                                           design: .rounded,
                                           weight: .regular))
 
-                        sectionView("Status:", "Release year")
+                        if let status = movie.status {
+                            sectionView("Status:", .init(status))
+                        }
 
                         sectionView("Release year:", "2015.")
 
@@ -69,8 +76,10 @@ struct MovieDetailView: View {
     }
 }
 
+#if DEBUG
 struct MovieDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        MovieDetailView()
+        MovieDetailView(.example)
     }
 }
+#endif

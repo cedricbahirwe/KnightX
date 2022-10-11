@@ -9,11 +9,11 @@ import Foundation
 
 final class MoviesViewModel: BaseViewModel, ObservableObject {
     private let moviesUseCase: MoviesUseCaseProtocol
-    @Published
-    private(set) var movies: [Movie] = []
+    @Published private(set) var movies: [Movie]
 
     init(moviesUseCase: MoviesUseCaseProtocol) {
         self.moviesUseCase = moviesUseCase
+        self.movies = []
     }
 
     public func getTopRatedMovies() {
@@ -21,12 +21,16 @@ final class MoviesViewModel: BaseViewModel, ObservableObject {
             .subscribe(onSuccess: { [weak self] response in
                 guard let self = self else { return }
                 DispatchQueue.main.async {
-                    print("Sucess", response)
+                    self.movies = response.0
                 }
             }, onFailure: { [weak self] error in
                 guard let self = self else { return }
                 self.errorRelay.accept(error)
             })
             .disposed(by: disposeBag)
+    }
+
+    public func refreshTopRatedMovies() async {
+
     }
 }

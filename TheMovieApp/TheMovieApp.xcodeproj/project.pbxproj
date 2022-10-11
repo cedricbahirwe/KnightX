@@ -50,6 +50,8 @@
 		CB9FE6ED28F5772100A6599C /* TopRatedMovies.json in Resources */ = {isa = PBXBuildFile; fileRef = CB9FE6EB28F5772100A6599C /* TopRatedMovies.json */; };
 		CB9FE6F328F5777200A6599C /* JSonLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE6F228F5777200A6599C /* JSonLocalDataSource.swift */; };
 		CB9FE6F428F5777200A6599C /* JSonLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE6F228F5777200A6599C /* JSonLocalDataSource.swift */; };
+		CB9FE6F728F57AE800A6599C /* Movie+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE6F628F57AE800A6599C /* Movie+Preview.swift */; };
+		CB9FE6F828F57AE800A6599C /* Movie+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9FE6F628F57AE800A6599C /* Movie+Preview.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,6 +112,7 @@
 		CB9FE6E828F575CA00A6599C /* MoviesRemoteDataSourceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesRemoteDataSourceProtocol.swift; sourceTree = "<group>"; };
 		CB9FE6EB28F5772100A6599C /* TopRatedMovies.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TopRatedMovies.json; sourceTree = "<group>"; };
 		CB9FE6F228F5777200A6599C /* JSonLocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSonLocalDataSource.swift; sourceTree = "<group>"; };
+		CB9FE6F628F57AE800A6599C /* Movie+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Movie+Preview.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				CB9FE67628F36C4D00A6599C /* Preview Assets.xcassets */,
+				CB9FE6F628F57AE800A6599C /* Movie+Preview.swift */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -468,6 +472,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB9FE6F728F57AE800A6599C /* Movie+Preview.swift in Sources */,
 				CB9FE6CC28F4552500A6599C /* ConnectivityManager.swift in Sources */,
 				CB9FE6D228F4583100A6599C /* MoviesRemoteDataSource.swift in Sources */,
 				CB9FE6A028F417F800A6599C /* WatchedStatusView.swift in Sources */,
@@ -506,6 +511,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB9FE6F428F5777200A6599C /* JSonLocalDataSource.swift in Sources */,
+				CB9FE6F828F57AE800A6599C /* Movie+Preview.swift in Sources */,
 				CB9FE68128F36C4D00A6599C /* TheMovieAppTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
