@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+//import SDWebImageSwiftUI
 
 struct MovieRowView: View {
     @Binding private var movie: Movie
@@ -43,9 +43,10 @@ struct MovieRowView: View {
 
 extension MovieRowView {
     var imageView: some View {
-        WebImage(url: URL(string: movie.fullPosterPath ?? ""))
-            .resizable()
-            .placeholder(Image(systemName: "photo.fill").resizable())
+        Color.red
+//        WebImage(url: URL(string: movie.fullPosterPath ?? ""))
+//            .resizable()
+//            .placeholder(Image(systemName: "photo.fill").resizable())
             .scaledToFill()
             .frame(width: 170, height: 170)
             .overlay {
