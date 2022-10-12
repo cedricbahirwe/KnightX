@@ -80,7 +80,7 @@ class GetMoviesUseCasesTest: XCTestCase {
                 XCTAssertEqual(singleMovie.id, id)
                 XCTAssertEqual(singleMovie.posterPath, posterPath)
                 XCTAssertEqual(singleMovie.releaseDate, releaseDate)
-                XCTAssertEqual(singleMovie.genres?.count, 8)
+                XCTAssertEqual(singleMovie.genres?.count, 3)
                 XCTAssertNotEqual(singleMovie.title, title)
                 XCTAssertNotEqual(singleMovie.popularity, popularity)
             }, onFailure: { error in

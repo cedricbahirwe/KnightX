@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-//import SDWebImageSwiftUI
+import SDWebImageSwiftUI
 
 struct MovieDetailView: View {
     @StateObject private var movieStore: MovieViewModel
@@ -21,11 +21,10 @@ struct MovieDetailView: View {
         ZStack(alignment: .top) {
 
             VStack(alignment: .leading, spacing: 0) {
-                Color.red
-//                WebImage(url: URL(string: movie.fullPosterPath ?? ""))
-//                    .resizable()
-//                    .placeholder(Image(systemName: "photo.fill").resizable())
-//                    .indicator(.activity(style: .large))
+                WebImage(url: URL(string: movie.fullPosterPath ?? ""))
+                    .resizable()
+                    .placeholder(Image(systemName: "photo.fill").resizable())
+                    .indicator(.activity(style: .large))
                     .scaledToFill()
                     .frame(maxWidth: .infinity)
                     .frame(height: 270)
