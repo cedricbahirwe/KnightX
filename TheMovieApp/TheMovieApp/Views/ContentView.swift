@@ -23,7 +23,7 @@ struct ContentView: View {
 #if DEBUG
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(MoviesViewModel(getMoviesUseCase: GetMoviesUseCaseMockup()))
+        ContentView(MoviesViewModel(GetMoviesUseCaseMockup()))
     }
 }
 #endif

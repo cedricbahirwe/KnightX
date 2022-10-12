@@ -15,8 +15,8 @@ final class MoviesViewModel: BaseViewModel, ObservableObject {
     private let getMoviesUseCase: GetMoviesUseCaseProtocol
     private var currentPage: Int
 
-    init(moviesUseCase: GetMoviesUseCaseProtocol) {
-        self.getMoviesUseCase = moviesUseCase
+    init(_ getMoviesUseCase: GetMoviesUseCaseProtocol) {
+        self.getMoviesUseCase = getMoviesUseCase
         self.topRatedMovies = []
         self.loadingState = .none
         self.currentPage = 1
