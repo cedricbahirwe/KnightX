@@ -12,11 +12,11 @@ final class MoviesViewModel: BaseViewModel, ObservableObject {
     @Published var loadingState: LoadingState
     @Published var alert: AlertItem?
 
-    private let moviesUseCase: MoviesUseCaseProtocol
+    private let getMoviesUseCase: GetMoviesUseCaseProtocol
     private var currentPage: Int
 
-    init(moviesUseCase: MoviesUseCaseProtocol) {
-        self.moviesUseCase = moviesUseCase
+    init(_ getMoviesUseCase: GetMoviesUseCaseProtocol) {
+        self.getMoviesUseCase = getMoviesUseCase
         self.topRatedMovies = []
         self.loadingState = .none
         self.currentPage = 1
@@ -42,7 +42,7 @@ final class MoviesViewModel: BaseViewModel, ObservableObject {
         guard loadingState == .none else { return }
         self.loadingState = .wide
         currentPage = 1
-        moviesUseCase.getTopRatedMovies(currentPage)
+        getMoviesUseCase.getTopRatedMovies(currentPage)
             .subscribe(onSuccess: { [weak self] response in
                 guard let self = self else { return }
                 self.topRatedMovies = response.0
@@ -59,7 +59,7 @@ final class MoviesViewModel: BaseViewModel, ObservableObject {
     public func fetchNextTopRatedMovies() {
         guard loadingState == .none else { return }
         self.loadingState = .small
-        moviesUseCase.getTopRatedMovies(currentPage)
+        getMoviesUseCase.getTopRatedMovies(currentPage)
             .subscribe(onSuccess: { [weak self] response in
                 guard let self = self else { return }
                 self.topRatedMovies += response.0

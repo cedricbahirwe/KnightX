@@ -88,7 +88,7 @@ struct MoviesListView: View {
 struct MoviesListView_Previews: PreviewProvider {
     static var previews: some View {
         MoviesListView()
-            .environmentObject(MoviesViewModel(moviesUseCase: MoviesUseCaseMockup()))
+            .environmentObject(MoviesViewModel(GetMoviesUseCaseMockup()))
     }
 }
 #endif
