@@ -71,17 +71,18 @@ class GetMoviesUseCasesTest: XCTestCase {
     func testSingleMovie() {
         let id = 70074
         let title = "The Godfather"
-        let posterPath = "/3bhkrj58Vtu7enYsRolD1fZdja1.jpg"
-        let releaseDate = "1972-03-14"
+        let posterPath = "/arJfxShfuZPhqfBZZU6DkPZfnjn.jpg"
+        let releaseDate = "2013-01-31"
         let popularity = 94.575
 
         getMoviesUseCase?.getMovieDetail(id)
             .subscribe(onSuccess: { singleMovie in
                 XCTAssertEqual(singleMovie.id, id)
-                XCTAssertEqual(singleMovie.title, title)
                 XCTAssertEqual(singleMovie.posterPath, posterPath)
                 XCTAssertEqual(singleMovie.releaseDate, releaseDate)
-                XCTAssertEqual(singleMovie.popularity, popularity)
+                XCTAssertEqual(singleMovie.genres?.count, 8)
+                XCTAssertNotEqual(singleMovie.title, title)
+                XCTAssertNotEqual(singleMovie.popularity, popularity)
             }, onFailure: { error in
                 XCTFail("Error in single movie: \(error)")
             })
