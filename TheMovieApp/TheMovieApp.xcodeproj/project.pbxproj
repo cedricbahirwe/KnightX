@@ -58,6 +58,7 @@
 		CBCBE75228F6D52000115898 /* SingleMovie.json in Resources */ = {isa = PBXBuildFile; fileRef = CBCBE74F28F6D52000115898 /* SingleMovie.json */; };
 		CBCBE75328F6D52000115898 /* SimilarMovies.json in Resources */ = {isa = PBXBuildFile; fileRef = CBCBE75028F6D52000115898 /* SimilarMovies.json */; };
 		CBCBE75428F6D52000115898 /* SimilarMovies.json in Resources */ = {isa = PBXBuildFile; fileRef = CBCBE75028F6D52000115898 /* SimilarMovies.json */; };
+		CBCBE75628F6D74500115898 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = CBCBE75528F6D74500115898 /* SDWebImageSwiftUI */; };
 		CBFEAA6528F620AD004C3658 /* MovieGenre.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFEAA6428F620AD004C3658 /* MovieGenre.swift */; };
 /* End PBXBuildFile section */
 
@@ -153,6 +154,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBCBE75628F6D74500115898 /* SDWebImageSwiftUI in Frameworks */,
 				12D2FD0BDEED68C7E1C84C26 /* Pods_TheMovieAppTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -441,6 +443,9 @@
 				CB9FE67E28F36C4D00A6599C /* PBXTargetDependency */,
 			);
 			name = TheMovieAppTests;
+			packageProductDependencies = (
+				CBCBE75528F6D74500115898 /* SDWebImageSwiftUI */,
+			);
 			productName = TheMovieAppTests;
 			productReference = CB9FE67C28F36C4D00A6599C /* TheMovieAppTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -1043,6 +1048,11 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		CB9FE6C328F44F2000A6599C /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CB9FE6C228F44F2000A6599C /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+		CBCBE75528F6D74500115898 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CB9FE6C228F44F2000A6599C /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
