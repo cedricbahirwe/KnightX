@@ -7,7 +7,7 @@
 
 import RxSwift
 
-final class MoviesUseCase: MoviesUseCaseProtocol {
+final class GetMoviesUseCase: GetMoviesUseCaseProtocol {
     private let dataSource: MoviesRemoteDataSourceProtocol
 
     init(_ dataSource: MoviesRemoteDataSourceProtocol = MoviesRemoteDataSource()) {

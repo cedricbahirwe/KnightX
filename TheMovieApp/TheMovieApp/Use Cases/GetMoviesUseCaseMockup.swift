@@ -7,7 +7,7 @@
 
 import RxSwift
 
-final class MoviesUseCaseMockup: MoviesUseCaseProtocol {
+final class GetMoviesUseCaseMockup: GetMoviesUseCaseProtocol {
 
     private let jsonLocalDataSource: JsonLocalDataSource
 

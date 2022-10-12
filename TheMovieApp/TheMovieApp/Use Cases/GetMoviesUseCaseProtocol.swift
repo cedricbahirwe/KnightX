@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-protocol MoviesUseCaseProtocol {
+protocol GetMoviesUseCaseProtocol {
     func getTopRatedMovies(_ page: Int) -> Single<([Movie], APIMetadata)>
 
     func getSimilarMovies(_ movieID: Int) -> Single<([Movie], APIMetadata)>

@@ -13,19 +13,18 @@ final class MovieViewModel: BaseViewModel, ObservableObject {
     @Published var loadingState: LoadingState
     @Published var alert: AlertItem?
     private var currentPage: Int
-    private let moviesUseCase: MoviesUseCaseProtocol
-
+    private let getMoviesUseCase: GetMoviesUseCaseProtocol
 
     init(_ movie: Movie,
          _ similarMovies: [Movie] = [],
          _ loadingState: LoadingState = .none,
          _ alert: AlertItem? = nil,
-         _ moviesUseCase: MoviesUseCaseProtocol = MoviesUseCase()) {
+         _ moviesUseCase: GetMoviesUseCaseProtocol = GetMoviesUseCase()) {
         self.movie = movie
         self.similarMovies = similarMovies
         self.loadingState = loadingState
         self.alert = alert
-        self.moviesUseCase = moviesUseCase
+        self.getMoviesUseCase = moviesUseCase
         self.currentPage = 1
         super.init()
         subscribeToErrors()
@@ -47,7 +46,7 @@ final class MovieViewModel: BaseViewModel, ObservableObject {
     public func fetchMovie() {
         if loadingState == .none {
             self.loadingState = .wide
-            moviesUseCase.getMovieDetail(movie.id)
+            getMoviesUseCase.getMovieDetail(movie.id)
                 .subscribe(onSuccess: { [weak self] response in
                     guard let self = self else { return }
                     self.movie = response
@@ -65,7 +64,7 @@ final class MovieViewModel: BaseViewModel, ObservableObject {
     public func fetchSimilarMovies() {
         guard loadingState == .none else { return }
         self.loadingState = .medium
-        moviesUseCase.getSimilarMovies(movie.id)
+        getMoviesUseCase.getSimilarMovies(movie.id)
             .subscribe(onSuccess: { [weak self] response in
                 guard let self = self else { return }
                 self.similarMovies += response.0
