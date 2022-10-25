@@ -7,8 +7,30 @@
 
 import Foundation
 import RxSwift
+import Combine
 
 final class MoviesRemoteDataSource: BaseRemoteDataSource, MoviesRemoteDataSourceProtocol {
+    func getTopRatedMovies(_ page: Int) -> AnyPublisher<([Movie], APIMetadata), Error> {
+        <#code#>
+    }
+
+    func getTopRatedMovies(_ page: Int) -> AnyPublisher<([Movie], APIMetadata), APIError> {
+        let params: [String: Any] = ["page": page]
+        let urlRequest = URLRequest(.topRated, .get, params)
+//        return apiRequest(urlRequest)
+        let publisher: AnyPublisher<MoviesDataResponse, Error> = apiRequest(.topRated(params))
+
+
+    }
+
+    func getSimilarMovies(_ movieID: Int) -> AnyPublisher<([Movie], APIMetadata), Error> {
+        <#code#>
+    }
+
+    func getMovieDetail(_ movieID: Int) -> AnyPublisher<Movie, Error> {
+        <#code#>
+    }
+
     func getTopRatedMovies(_ page: Int) -> Single<([Movie], APIMetadata)> {
         requestTopMovies(page).map({ ($0.0.movies, $0.0.metadata) })
     }

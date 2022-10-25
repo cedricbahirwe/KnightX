@@ -7,6 +7,8 @@
 
 import Foundation
 import RxSwift
+import Combine
+import Alamofire
 
 class BaseRemoteDataSource {
     private let api: APIClient
@@ -53,6 +55,10 @@ class BaseRemoteDataSource {
         })
     }
 
+    func apiRequest<T: Decodable>(_ route: APIEndpoints) -> AnyPublisher<T, NetworkError> {
+        api.request(route: route)
+    }
+
     private func parseError(_ error: Error) -> APIError? {
         return getInternalError(error)
     }
@@ -78,4 +84,17 @@ class BaseRemoteDataSource {
             return Disposables.create()
         })
     }
+}
+
+extension Publisher {
+  func tryDecodeResponse<Item, Coder>(type: Item.Type, decoder: Coder) -> Publishers.Decode<Publishers.TryMap<Self, Data>, Item, Coder> where Item: Decodable, Coder: TopLevelDecoder, Self.Output == (data: Data, response: URLResponse) {
+    return self
+      .tryMap { output in
+        guard let httpResponse = output.response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+          throw URLError(.badServerResponse)
+        }
+        return output.data
+      }
+      .decode(type: type, decoder: decoder)
+  }
 }

@@ -9,6 +9,7 @@ import Foundation
 import RxSwift
 import Alamofire
 import RxAlamofire
+import Combine
 
 public class APIClient {
     private var sessionManager: Session
@@ -48,6 +49,16 @@ public class APIClient {
                 return Disposables.create()
             }
         })
+    }
+
+    func request<T: Decodable>(route: APIEndpoints) -> AnyPublisher<T, APIError> {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        return sessionManager.request(route)
+            .publishDecodable(type: T.self, decoder: decoder)
+            .value()
+            .mapError { APIError.apiError(code: $0.responseCode ?? -1, message: $0.errorDescription ?? $0.localizedDescription) }
+            .eraseToAnyPublisher()
     }
 
     private func request<T: Decodable>(_ urlRequest: URLRequest,

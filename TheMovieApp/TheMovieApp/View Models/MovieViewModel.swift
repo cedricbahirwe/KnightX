@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 final class MovieViewModel: BaseViewModel, ObservableObject {
     @Published var movie: Movie
@@ -44,6 +45,8 @@ final class MovieViewModel: BaseViewModel, ObservableObject {
     }
 
     public func fetchMovie() {
+//        Publishers.Zip3(<#T##a: Publisher##Publisher#>, <#T##b: Publisher##Publisher#>, <#T##c: Publisher##Publisher#>)
+//        Pubshers
         if loadingState == .none {
             self.loadingState = .wide
             getMoviesUseCase.getMovieDetail(movie.id)
