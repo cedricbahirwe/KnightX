@@ -2,8 +2,7 @@
 
 The Movie app is a simple application that consists of two features. The first feature is a collection of
 movies, while the second feature is a page that presents details of the selected movie.
-API that needs to be used is [The Movie Database](https://developers.themoviedb.org/3/getting-started/introduction). The specific routes will be provided later in the
-assignment text.
+API that needs to be used is [The Movie Database](https://developers.themoviedb.org/3/getting-started/introduction). 
 
 Home View   | Detail View
 --------------------- | ---------------------
