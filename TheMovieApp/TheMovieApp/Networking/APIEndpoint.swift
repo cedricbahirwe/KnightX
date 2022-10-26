@@ -6,22 +6,7 @@
 //
 
 import Foundation
-
-enum APIEndpoint: String {
-    case topRated = "/movie/top_rated"
-    case similarMovies = "/movie/%d/similar"
-    case movieDetail = "/movie/%d"
-
-    var baseURL: BaseURL {
-        return .moviesDB_url
-    }
-    enum BaseURL {
-        case moviesDB_url
-    }
-}
-
 import Alamofire
-import Foundation
 
 public protocol APIConfiguration: URLRequestConvertible {
     var method: HTTPMethod { get }
@@ -32,7 +17,7 @@ public protocol APIConfiguration: URLRequestConvertible {
     func asURLRequest() throws -> URLRequest
 }
 
-public enum APIEndpoints: APIConfiguration {
+public enum APIEndpoint: APIConfiguration {
 
     case topRated(_ params: [String: Any])
     case similarMovies(_ movieID: Int)
@@ -74,10 +59,14 @@ public enum APIEndpoints: APIConfiguration {
     // MARK: - URLRequestConvertible
     public func asURLRequest() throws -> URLRequest {
         let urlWithPathValue = baseURL + path
-        var url = try urlWithPathValue.asURL()
+        let url = try urlWithPathValue.asURL()
         var urlRequest = URLRequest(url: url)
         urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
         urlRequest.httpMethod = method.rawValue
+        if let accessToken = AuthenticationLocalDataSource.getAccessToken() {
+            urlRequest.addValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
+            print("🏀 accessToken \(accessToken)")
+        }
 
         if let parameters = parameters {
             switch self {

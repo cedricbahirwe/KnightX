@@ -5,16 +5,15 @@
 //  Created by Cédric Bahirwe on 10/10/2022.
 //
 
-import RxSwift
-import RxCocoa
+import Combine
 
 class BaseViewModel {
-    let disposeBag = DisposeBag()
-    let errorRelay = PublishRelay<Error>()
-    let loadingRelay = PublishRelay<Bool>()
+    final var cancellables = Set<AnyCancellable>()
+    let errorRelay = PassthroughSubject<Error, Never>()
+    let loadingRelay = PassthroughSubject<Bool, Never>()
 
     func handleError(_ error: Error, _ retryAction: @escaping (() -> Void)) {
-        errorRelay.accept(parseApiErrorToRetry(error, retryAction))
+        errorRelay.send(parseApiErrorToRetry(error, retryAction))
     }
 
     private func parseApiErrorToRetry(_ error: Error, _ retryAction: @escaping (() -> Void)) -> Error {
@@ -28,9 +27,5 @@ class BaseViewModel {
         default:
             return error
         }
-    }
-
-    private func logout() {
-        // Remove credentials
     }
 }
