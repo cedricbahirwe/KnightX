@@ -5,6 +5,7 @@ use_frameworks!
 
 target 'TheMovieApp' do
     pod 'Alamofire'
+    pod 'SDWebImageSwiftUI'
 end
 
 target 'TheMovieAppTests' do
