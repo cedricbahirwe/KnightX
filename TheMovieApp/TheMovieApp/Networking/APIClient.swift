@@ -25,16 +25,6 @@ public class APIClient {
             .eraseToAnyPublisher()
     }
 
-    private func decode(_ data: Data, statusCode: Int, _ errorHandler: ((_ error: APIError) -> Void)) {
-        do {
-            let errorResponse = try JSONDecoder().decode(ErrorResponse.self, from: data)
-            errorHandler(APIError.apiError(code: errorResponse.code ?? statusCode,
-                                           message: errorResponse.message ?? ""))
-        } catch {
-            errorHandler(.unableToDecodeData)
-        }
-    }
-
     func logError(_ urlRequest: URLRequest, response: HTTPURLResponse) {
         #if DEBUG
         log.error(urlRequest)

@@ -429,7 +429,6 @@
 				CB9FE67828F36C4D00A6599C /* Sources */,
 				CB9FE67928F36C4D00A6599C /* Frameworks */,
 				CB9FE67A28F36C4D00A6599C /* Resources */,
-				9986D6908A8A25E31690DF99 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -496,7 +495,7 @@
 			);
 			mainGroup = CB9FE66328F36C4B00A6599C;
 			packageReferences = (
-				CB9FE6C228F44F2000A6599C /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				CB9FE6C228F44F2000A6599C /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI.git" */,
 			);
 			productRefGroup = CB9FE66D28F36C4B00A6599C /* Products */;
 			projectDirPath = "";
@@ -606,23 +605,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9986D6908A8A25E31690DF99 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TheMovieAppTests/Pods-TheMovieAppTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-TheMovieAppTests/Pods-TheMovieAppTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TheMovieAppTests/Pods-TheMovieAppTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E9085347555818D521EDAB22 /* [CP] Embed Pods Frameworks */ = {
@@ -1028,7 +1010,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		CB9FE6C228F44F2000A6599C /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+		CB9FE6C228F44F2000A6599C /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
 			requirement = {
@@ -1041,12 +1023,12 @@
 /* Begin XCSwiftPackageProductDependency section */
 		CB9FE6C328F44F2000A6599C /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CB9FE6C228F44F2000A6599C /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			package = CB9FE6C228F44F2000A6599C /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI.git" */;
 			productName = SDWebImageSwiftUI;
 		};
 		CBCBE75528F6D74500115898 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CB9FE6C228F44F2000A6599C /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			package = CB9FE6C228F44F2000A6599C /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI.git" */;
 			productName = SDWebImageSwiftUI;
 		};
 /* End XCSwiftPackageProductDependency section */
