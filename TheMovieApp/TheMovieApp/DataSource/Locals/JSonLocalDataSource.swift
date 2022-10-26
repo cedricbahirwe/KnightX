@@ -40,7 +40,8 @@ class JsonLocalDataSource {
                 return Fail(error: error).eraseToAnyPublisher()
             }
         } else {
-            return Fail(error: NSError(domain: APIError.fileNotFound(fileName).message, code: -10001)).eraseToAnyPublisher()
+            return Fail(error: NSError(domain: APIError.fileNotFound(fileName).message,
+                                       code: -10001)).eraseToAnyPublisher()
         }
     }
 }

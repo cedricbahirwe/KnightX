@@ -9,15 +9,15 @@ import RxSwift
 import Combine
 
 final class GetMoviesUseCase: GetMoviesUseCaseProtocol {
-    func getTopRatedMovies(_ page: Int) -> AnyPublisher<([Movie], APIMetadata), Error> {
+    func getTopRatedMovies(_ page: Int) -> AnyPublisher<([Movie], APIMetadata), APIError> {
         dataSource.getTopRatedMovies(page)
     }
 
-    func getSimilarMovies(_ movieID: Int) -> AnyPublisher<([Movie], APIMetadata), Error> {
+    func getSimilarMovies(_ movieID: Int) -> AnyPublisher<([Movie], APIMetadata), APIError> {
         dataSource.getSimilarMovies(movieID)
     }
 
-    func getMovieDetail(_ movieID: Int) -> AnyPublisher<Movie, Error> {
+    func getMovieDetail(_ movieID: Int) -> AnyPublisher<Movie, APIError> {
         dataSource.getMovieDetail(movieID)
     }
 

@@ -10,25 +10,20 @@ import RxSwift
 import Combine
 
 final class MoviesRemoteDataSource: BaseRemoteDataSource, MoviesRemoteDataSourceProtocol {
-    func getTopRatedMovies(_ page: Int) -> AnyPublisher<([Movie], APIMetadata), Error> {
-        <#code#>
-    }
-
     func getTopRatedMovies(_ page: Int) -> AnyPublisher<([Movie], APIMetadata), APIError> {
         let params: [String: Any] = ["page": page]
-        let urlRequest = URLRequest(.topRated, .get, params)
-//        return apiRequest(urlRequest)
-        let publisher: AnyPublisher<MoviesDataResponse, Error> = apiRequest(.topRated(params))
+        let publisher: AnyPublisher<MoviesDataResponse, APIError> = apiRequest(.topRated(params))
 
-
+        return publisher.map { ($0.movies, $0.metadata) }.eraseToAnyPublisher()
     }
 
-    func getSimilarMovies(_ movieID: Int) -> AnyPublisher<([Movie], APIMetadata), Error> {
-        <#code#>
+    func getSimilarMovies(_ movieID: Int) -> AnyPublisher<([Movie], APIMetadata), APIError> {
+        let publisher: AnyPublisher<MoviesDataResponse, APIError> = apiRequest(.similarMovies(movieID))
+        return publisher.map { ($0.movies, $0.metadata) }.eraseToAnyPublisher()
     }
 
-    func getMovieDetail(_ movieID: Int) -> AnyPublisher<Movie, Error> {
-        <#code#>
+    func getMovieDetail(_ movieID: Int) -> AnyPublisher<Movie, APIError> {
+        apiRequest(.movieDetail(movieID))
     }
 
     func getTopRatedMovies(_ page: Int) -> Single<([Movie], APIMetadata)> {

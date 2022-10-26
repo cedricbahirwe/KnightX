@@ -35,8 +35,8 @@ public protocol APIConfiguration: URLRequestConvertible {
 public enum APIEndpoints: APIConfiguration {
 
     case topRated(_ params: [String: Any])
-    case similarMovies(movieID: Int)
-    case movieDetail(movieID: Int)
+    case similarMovies(_ movieID: Int)
+    case movieDetail(_ movieID: Int)
 
     // MARK: - HTTPMethod
     public var method: HTTPMethod {

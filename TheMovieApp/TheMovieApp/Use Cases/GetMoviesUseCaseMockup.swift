@@ -9,18 +9,27 @@ import RxSwift
 import Combine
 
 final class GetMoviesUseCaseMockup: GetMoviesUseCaseProtocol {
-    func getTopRatedMovies(_ page: Int) -> AnyPublisher<([Movie], APIMetadata), Error> {
+    func getTopRatedMovies(_ page: Int) -> AnyPublisher<([Movie], APIMetadata), APIError> {
         let data: AnyPublisher<MoviesDataResponse, Error> = jsonLocalDataSource.read("TopRatedMovies")
-        return data.map({ ($0.movies, $0.metadata) }).eraseToAnyPublisher()
+        return data
+            .map { ($0.movies, $0.metadata) }
+            .mapError { APIError.unknownError(message: $0.localizedDescription) }
+            .eraseToAnyPublisher()
     }
 
-    func getSimilarMovies(_ movieID: Int) -> AnyPublisher<([Movie], APIMetadata), Error> {
+    func getSimilarMovies(_ movieID: Int) -> AnyPublisher<([Movie], APIMetadata), APIError> {
         let data: AnyPublisher<MoviesDataResponse, Error> = jsonLocalDataSource.read("SimilarMovies")
-        return data.map({ ($0.movies, $0.metadata) }).eraseToAnyPublisher()
+        return data
+            .map({ ($0.movies, $0.metadata) })
+            .mapError({ APIError.unknownError(message: $0.localizedDescription) })
+            .eraseToAnyPublisher()
     }
 
-    func getMovieDetail(_ movieID: Int) -> AnyPublisher<Movie, Error> {
-        jsonLocalDataSource.read("SingleMovie")
+    func getMovieDetail(_ movieID: Int) -> AnyPublisher<Movie, APIError> {
+        let data: AnyPublisher<Movie, Error> = jsonLocalDataSource.read("SingleMovie")
+        return data
+            .mapError({ APIError.unknownError(message: $0.localizedDescription) })
+            .eraseToAnyPublisher()
     }
 
     private let jsonLocalDataSource: JsonLocalDataSource
