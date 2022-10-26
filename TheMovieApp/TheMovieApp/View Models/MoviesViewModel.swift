@@ -26,7 +26,7 @@ final class MoviesViewModel: BaseViewModel, ObservableObject {
     }
 
     func subscribeToErrors() {
-        errorRelay.subscribe(onNext: { [weak self] error in
+        errorRelay.sink { [weak self] error in
             guard let self = self else { return }
             if case let APIError.retryError(message, retryAction) = error {
                 self.alert = AlertItem(message: message, action: retryAction)
@@ -35,7 +35,8 @@ final class MoviesViewModel: BaseViewModel, ObservableObject {
             } else {
                 self.alert = AlertItem(message: error.localizedDescription)
             }
-        }).disposed(by: disposeBag)
+        }
+        .store(in: &cancellables)
     }
 
     public func fetchTopRatedMovies() {
@@ -43,34 +44,39 @@ final class MoviesViewModel: BaseViewModel, ObservableObject {
         self.loadingState = .wide
         currentPage = 1
         getMoviesUseCase.getTopRatedMovies(currentPage)
-            .subscribe(onSuccess: { [weak self] response in
+            .sink(receiveCompletion: { [weak self] in
+                if case .failure(let error) = $0 {
+                    guard let self = self else { return }
+                    self.loadingState = .none
+                    self.handleError(error, self.fetchTopRatedMovies)
+                }
+
+            }, receiveValue: { [weak self] response in
                 guard let self = self else { return }
                 self.topRatedMovies = response.0
                 self.currentPage = response.1.currentPage + 1
                 self.loadingState = .none
-            }, onFailure: { [weak self] error in
-                guard let self = self else { return }
-                self.loadingState = .none
-                self.handleError(error, self.fetchTopRatedMovies)
             })
-            .disposed(by: disposeBag)
+            .store(in: &cancellables)
     }
 
     public func fetchNextTopRatedMovies() {
         guard loadingState == .none else { return }
         self.loadingState = .small
         getMoviesUseCase.getTopRatedMovies(currentPage)
-            .subscribe(onSuccess: { [weak self] response in
+            .sink(receiveCompletion: { [weak self] in
+                if case .failure(let error) = $0 {
+                    guard let self = self else { return }
+                    self.loadingState = .none
+                    self.handleError(error, self.fetchNextTopRatedMovies)
+                }
+            }, receiveValue: { [weak self] response in
                 guard let self = self else { return }
                 self.topRatedMovies += response.0
                 self.currentPage = response.1.currentPage + 1
                 self.loadingState = .none
-            }, onFailure: { [weak self] error in
-                guard let self = self else { return }
-                self.loadingState = .none
-                self.handleError(error, self.fetchNextTopRatedMovies)
             })
-            .disposed(by: disposeBag)
+            .store(in: &cancellables)
     }
 
     public func hasReachedEnd(_ movie: Movie) -> Bool {
