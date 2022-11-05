@@ -6,8 +6,10 @@ API that needs to be used is [The Movie Database](https://developers.themoviedb.
 
 
 ### Tech Stack:
-- Swift, SwiftUI, Combine
-- SDWebImage
+- SwiftUI
+- Combine
+- Alamofire
+- SDWebImageSwiftUI
 
 Home View   | Detail View
 --------------------- | ---------------------
